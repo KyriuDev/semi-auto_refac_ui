@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI">
+  <bpmn:process id="Process_vAJqEv" isExecutable="false">
+    <bpmn:endEvent id="EndEvent">
+      <bpmn:incoming>Flow_zSj89I</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="T0" name="T0 (28) &#60;3 R1, 2 R4, 1 R5&#62;">
+      <bpmn:incoming>Flow_tMJK0o</bpmn:incoming>
+      <bpmn:outgoing>Flow_xFVXUE</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="T1" name="T1 (8) &#60;2 R2, 3 R3&#62;">
+      <bpmn:incoming>Flow_cGoB16</bpmn:incoming>
+      <bpmn:outgoing>Flow_9GcYup</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="T2" name="T2 (13) &#60;2 R4, 2 R5&#62;">
+      <bpmn:outgoing>Flow_lcpXLl</bpmn:outgoing>
+      <bpmn:incoming>Flow_xFVXUE</bpmn:incoming>
+    </bpmn:userTask>
+    <bpmn:userTask id="T3" name="T3 (8) &#60;2 R2&#62;">
+      <bpmn:incoming>Flow_lcpXLl</bpmn:incoming>
+      <bpmn:outgoing>Flow_I2M3GR</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="T4" name="T4 (30) &#60;1 R1&#62;">
+      <bpmn:outgoing>Flow_zSj89I</bpmn:outgoing>
+      <bpmn:incoming>Flow_hw8MMW</bpmn:incoming>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_9GcYup" name="" sourceRef="T1" targetRef="Gateway_tpVaFG" />
+    <bpmn:parallelGateway id="Gateway_3gvwQJ">
+      <bpmn:outgoing>Flow_cGoB16</bpmn:outgoing>
+      <bpmn:outgoing>Flow_tMJK0o</bpmn:outgoing>
+      <bpmn:incoming>Flow_Q8QzK8</bpmn:incoming>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_lcpXLl" name="" sourceRef="T2" targetRef="T3" />
+    <bpmn:sequenceFlow id="Flow_cGoB16" name="" sourceRef="Gateway_3gvwQJ" targetRef="T1" />
+    <bpmn:sequenceFlow id="Flow_zSj89I" name="" sourceRef="T4" targetRef="EndEvent" />
+    <bpmn:sequenceFlow id="Flow_tMJK0o" name="" sourceRef="Gateway_3gvwQJ" targetRef="T0" />
+    <bpmn:sequenceFlow id="Flow_xFVXUE" name="" sourceRef="T0" targetRef="T2" />
+    <bpmn:sequenceFlow id="Flow_I2M3GR" name="" sourceRef="T3" targetRef="Gateway_tpVaFG" />
+    <bpmn:sequenceFlow id="Flow_Q8QzK8" name="" sourceRef="StartEvent" targetRef="Gateway_3gvwQJ" />
+    <bpmn:parallelGateway id="Gateway_tpVaFG">
+      <bpmn:incoming>Flow_9GcYup</bpmn:incoming>
+      <bpmn:incoming>Flow_I2M3GR</bpmn:incoming>
+      <bpmn:outgoing>Flow_hw8MMW</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:startEvent id="StartEvent">
+      <bpmn:outgoing>Flow_Q8QzK8</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_hw8MMW" name="" sourceRef="Gateway_tpVaFG" targetRef="T4" />
+  </bpmn:process>
+</bpmn:definitions>

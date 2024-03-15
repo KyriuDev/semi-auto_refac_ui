@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL">
+  <bpmn:process id="Process_5G2JdlVV" isExecutable="true">
+    <bpmn:startEvent id="StartEvent">
+      <bpmn:outgoing>sequenceFlow-cd7d2ee0-99b0-4eb0-82b1-11d13961c1f2</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent">
+      <bpmn:incoming>sequenceFlow-87f5a20e-a5b4-46ca-a939-becd01e9cced</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="T0" name="T0 (28) &#60;3 R1, 2 R4, 1 R5&#62;">
+      <bpmn:outgoing>sequenceFlow-b437afe6-a333-41cd-87ce-73504464cbbc</bpmn:outgoing>
+      <bpmn:incoming>sequenceFlow-cd7d2ee0-99b0-4eb0-82b1-11d13961c1f2</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:task id="T1" name="T1 (8) &#60;2 R2, 3 R3&#62;">
+      <bpmn:incoming>sequenceFlow-37a22c05-c50c-4a98-9a28-f3d8be820b22</bpmn:incoming>
+      <bpmn:outgoing>sequenceFlow-48e4af7b-6112-4378-a940-4b1b059378e8</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="T2" name="T2 (13) &#60;2 R4, 2 R5&#62;">
+      <bpmn:outgoing>sequenceFlow-4c6c9c8f-da43-4fcd-b456-3e29fa4431f9</bpmn:outgoing>
+      <bpmn:incoming>sequenceFlow-00a5ece7-d1f5-49b1-af1a-1d7ec23fee10</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:task id="T3" name="T3 (8) &#60;2 R2&#62;">
+      <bpmn:incoming>sequenceFlow-4c6c9c8f-da43-4fcd-b456-3e29fa4431f9</bpmn:incoming>
+      <bpmn:outgoing>sequenceFlow-e74e6b0e-d6ac-4b7a-b2f6-f0e8ff42832c</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="T4" name="T4 (30) &#60;1 R1&#62;">
+      <bpmn:incoming>sequenceFlow-406a5713-96bc-4fd1-bff6-dc118309503f</bpmn:incoming>
+      <bpmn:outgoing>sequenceFlow-87f5a20e-a5b4-46ca-a939-becd01e9cced</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:parallelGateway id="Gateway_b9GgSy">
+      <bpmn:outgoing>sequenceFlow-37a22c05-c50c-4a98-9a28-f3d8be820b22</bpmn:outgoing>
+      <bpmn:incoming>sequenceFlow-b437afe6-a333-41cd-87ce-73504464cbbc</bpmn:incoming>
+      <bpmn:outgoing>sequenceFlow-00a5ece7-d1f5-49b1-af1a-1d7ec23fee10</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:parallelGateway id="Gateway_WPFCsX">
+      <bpmn:outgoing>sequenceFlow-406a5713-96bc-4fd1-bff6-dc118309503f</bpmn:outgoing>
+      <bpmn:incoming>sequenceFlow-48e4af7b-6112-4378-a940-4b1b059378e8</bpmn:incoming>
+      <bpmn:incoming>sequenceFlow-e74e6b0e-d6ac-4b7a-b2f6-f0e8ff42832c</bpmn:incoming>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="sequenceFlow-b437afe6-a333-41cd-87ce-73504464cbbc" name="" sourceRef="T0" targetRef="Gateway_b9GgSy" />
+    <bpmn:sequenceFlow id="sequenceFlow-cd7d2ee0-99b0-4eb0-82b1-11d13961c1f2" name="" sourceRef="StartEvent" targetRef="T0" />
+    <bpmn:sequenceFlow id="sequenceFlow-406a5713-96bc-4fd1-bff6-dc118309503f" name="" sourceRef="Gateway_WPFCsX" targetRef="T4" />
+    <bpmn:sequenceFlow id="sequenceFlow-e74e6b0e-d6ac-4b7a-b2f6-f0e8ff42832c" name="" sourceRef="T3" targetRef="Gateway_WPFCsX" />
+    <bpmn:sequenceFlow id="sequenceFlow-4c6c9c8f-da43-4fcd-b456-3e29fa4431f9" name="" sourceRef="T2" targetRef="T3" />
+    <bpmn:sequenceFlow id="sequenceFlow-37a22c05-c50c-4a98-9a28-f3d8be820b22" name="" sourceRef="Gateway_b9GgSy" targetRef="T1" />
+    <bpmn:sequenceFlow id="sequenceFlow-87f5a20e-a5b4-46ca-a939-becd01e9cced" name="" sourceRef="T4" targetRef="EndEvent" />
+    <bpmn:sequenceFlow id="sequenceFlow-48e4af7b-6112-4378-a940-4b1b059378e8" name="" sourceRef="T1" targetRef="Gateway_WPFCsX" />
+    <bpmn:sequenceFlow id="sequenceFlow-00a5ece7-d1f5-49b1-af1a-1d7ec23fee10" name="" sourceRef="Gateway_b9GgSy" targetRef="T2" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Process_5G2JdlVV">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_5G2JdlVV" bpmnElement="Process_5G2JdlVV">
+      <bpmndi:BPMNShape id="BPMNShape_T4" bpmnElement="T4">
+        <omgdc:Bounds x="710" y="67" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_StartEvent" bpmnElement="StartEvent">
+        <omgdc:Bounds x="0" y="95" width="30" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent" bpmnElement="EndEvent">
+        <omgdc:Bounds x="860" y="82" width="30" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Gateway_b9GgSy" bpmnElement="Gateway_b9GgSy">
+        <omgdc:Bounds x="230" y="90" width="40" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Gateway_WPFCsX" bpmnElement="Gateway_WPFCsX">
+        <omgdc:Bounds x="620" y="76" width="40" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_T0" bpmnElement="T0">
+        <omgdc:Bounds x="80" y="80" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_T1" bpmnElement="T1">
+        <omgdc:Bounds x="320" y="0" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_T2" bpmnElement="T2">
+        <omgdc:Bounds x="320" y="160" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_T3" bpmnElement="T3">
+        <omgdc:Bounds x="470" y="130" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-87f5a20e-a5b4-46ca-a939-becd01e9cced" bpmnElement="sequenceFlow-87f5a20e-a5b4-46ca-a939-becd01e9cced">
+        <omgdi:waypoint x="810" y="97" />
+        <omgdi:waypoint x="860" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-48e4af7b-6112-4378-a940-4b1b059378e8" bpmnElement="sequenceFlow-48e4af7b-6112-4378-a940-4b1b059378e8">
+        <omgdi:waypoint x="420" y="30" />
+        <omgdi:waypoint x="432" y="30" />
+        <omgdi:waypoint x="432" y="96" />
+        <omgdi:waypoint x="620" y="96" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-37a22c05-c50c-4a98-9a28-f3d8be820b22" bpmnElement="sequenceFlow-37a22c05-c50c-4a98-9a28-f3d8be820b22">
+        <omgdi:waypoint x="270" y="102" />
+        <omgdi:waypoint x="282" y="102" />
+        <omgdi:waypoint x="282" y="30" />
+        <omgdi:waypoint x="320" y="30" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-e74e6b0e-d6ac-4b7a-b2f6-f0e8ff42832c" bpmnElement="sequenceFlow-e74e6b0e-d6ac-4b7a-b2f6-f0e8ff42832c">
+        <omgdi:waypoint x="570" y="160" />
+        <omgdi:waypoint x="582" y="160" />
+        <omgdi:waypoint x="582" y="96" />
+        <omgdi:waypoint x="620" y="96" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-406a5713-96bc-4fd1-bff6-dc118309503f" bpmnElement="sequenceFlow-406a5713-96bc-4fd1-bff6-dc118309503f">
+        <omgdi:waypoint x="660" y="96" />
+        <omgdi:waypoint x="672" y="96" />
+        <omgdi:waypoint x="672" y="97" />
+        <omgdi:waypoint x="710" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-4c6c9c8f-da43-4fcd-b456-3e29fa4431f9" bpmnElement="sequenceFlow-4c6c9c8f-da43-4fcd-b456-3e29fa4431f9">
+        <omgdi:waypoint x="420" y="190" />
+        <omgdi:waypoint x="432" y="190" />
+        <omgdi:waypoint x="432" y="160" />
+        <omgdi:waypoint x="470" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-b437afe6-a333-41cd-87ce-73504464cbbc" bpmnElement="sequenceFlow-b437afe6-a333-41cd-87ce-73504464cbbc">
+        <omgdi:waypoint x="180" y="110" />
+        <omgdi:waypoint x="230" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-00a5ece7-d1f5-49b1-af1a-1d7ec23fee10" bpmnElement="sequenceFlow-00a5ece7-d1f5-49b1-af1a-1d7ec23fee10">
+        <omgdi:waypoint x="270" y="117" />
+        <omgdi:waypoint x="282" y="117" />
+        <omgdi:waypoint x="282" y="190" />
+        <omgdi:waypoint x="320" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-cd7d2ee0-99b0-4eb0-82b1-11d13961c1f2" bpmnElement="sequenceFlow-cd7d2ee0-99b0-4eb0-82b1-11d13961c1f2">
+        <omgdi:waypoint x="30" y="110" />
+        <omgdi:waypoint x="80" y="110" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

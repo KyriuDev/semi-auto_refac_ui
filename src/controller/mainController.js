@@ -37,35 +37,44 @@ const acceptTask = async function(req, res) {
     const workingDirectory = req.body.field2;
 
     //Update information file to say that the user accepted the task
-    await updateInformation(workingDirectory, AGREEMENT_YES);
+    await updateInformation(workingDirectory, AGREEMENT_YES, function(error){
+        if (error === 0){
+            //Launch the Java program
+            const returnValue = launchJVM(dirExtension);
+            
+            console.log("Return value: " + returnValue['retVal'] + "\nError message:\n\n" + returnValue['msg']);
 
-    //Ask Java to propose a process
-    const returnValue = launchJVM(dirExtension);
-    
-    console.log(returnValue['retVal'] + "/" + returnValue['msg']);
+            //If Java returned an error, send it back to the client
+            if (returnValue['retVal'] != 0) {
+                res.send(returnValue);
+                return;
+            }
 
-    //If Java returned an error, send it back to the client
-    if (returnValue['retVal'] != 0) {
-        res.send(returnValue);
-        return;
-    }
+            //Otherwise, read the information about the proposed process from the information file and send it to the client
+            getLastLine(workingDirectory, function(jsonObject){
+                const aetGain = jsonObject[GAIN_FIELD];
+                const percentageGain = aetGain / (aetGain + jsonObject[AET_FIELD]) * 100;
+                const bpmnFilename = jsonObject[BPMN_FILENAME_FIELD];
+                const bpmnFilePath = "http://localhost:3000/" + path.join("refactoring", dirExtension, bpmnFilename);
+                const roundedPercentage = Math.round((percentageGain + Number.EPSILON) * 100) / 100;
+                const roundedAET = Math.round((aetGain + Number.EPSILON) * 100) / 100;
+                
+                console.log("Percentage gain: " + roundedPercentage);
+                console.log("AET gain: " + roundedAET);
+                console.log("BPMN file name: " + bpmnFilename);
+                console.log("BPMN file path: " + bpmnFilePath);    
 
-    //Otherwise, read the proposed process from the information file and send it to the client
-    var jsonObject = await getLastLine(workingDirectory);
-    const aetGain = jsonObject[GAIN_FIELD];
-    const percentageGain = aetGain / (aetGain + jsonObject[AET_FIELD])
-    const bpmnFilename = jsonObject[BPMN_FILENAME_FIELD]
-    const bpmnFilePath = "http://localhost:3000/" + path.join("refactoring", dirExtension, bpmnFilename);
-    
-    console.log("Percentage gain: " + percentageGain);
-    console.log("AET gain: " + aetGain);
-    console.log("BPMN file name: " + bpmnFilename);
-    console.log("BPMN file path: " + bpmnFilePath);    
-    
-    returnValue['aetGain'] = aetGain;
-    returnValue['percentageGain'] = percentageGain;
-    returnValue['bpmnFilePath'] = bpmnFilePath;
-    res.send(returnValue);
+                returnValue['aetGain'] = roundedAET;
+                returnValue['percentageGain'] = roundedPercentage;
+                returnValue['bpmnFilePath'] = bpmnFilePath;
+                res.send(returnValue);
+            });
+        } else {
+            //Writing the information to the file failed, return error to client
+            var info = {retVal: 1, msg: error};
+            res.send(info);
+        }
+    });
 }
 
 /*
@@ -74,8 +83,36 @@ const acceptTask = async function(req, res) {
     value to ``1'' (i.e., ``False'')
 */
 const declineTask = async function(req, res) {
-    const workingDirectory = req.body.field1;
-    await updateInformation(req.body.field1, AGREEMENT_NO);
+    const dirExtension = req.body.field1;
+    const workingDirectory = req.body.field2;
+
+    //Update information file to say that the user declined the task
+    await updateInformation(workingDirectory, AGREEMENT_NO, function(error){
+        if (error === 0){
+            //Launch the Java program
+            const returnValue = launchJVM(dirExtension);
+            
+            console.log("Return value: " + returnValue['retVal'] + "\nError message:\n\n" + returnValue['msg']);
+
+            //If Java returned an error, send it back to the client
+            if (returnValue['retVal'] != 0) {
+                res.send(returnValue);
+                return;
+            }
+
+            //Otherwise, read the new elected task and send it to the client
+            getLastLine(workingDirectory, function(jsonObject){
+                const electedTask = jsonObject[ELECTED_TASK_FIELD];
+               
+                returnValue[ELECTED_TASK_FIELD] = electedTask;
+                res.send(returnValue);
+            });
+        } else {
+            //Writing the information to the file failed, return error to client
+            var info = {retVal: 1, msg: error};
+            res.send(info);
+        }
+    });
 }
 
 /*
@@ -84,8 +121,37 @@ const declineTask = async function(req, res) {
     ``agreement'' value to ``0'' (i.e., ``True'')
 */
 const acceptProcess = async function(req, res) {
-    const workingDirectory = req.body.field1;
-    await updateInformation(req.body.field1, AGREEMENT_YES);
+    const dirExtension = req.body.field1;
+    const workingDirectory = req.body.field2;
+
+    //Update information file to say that the user accepted the process
+    await updateInformation(workingDirectory, AGREEMENT_YES, function(error){
+        if (error === 0){
+            //Launch the Java program
+            const returnValue = launchJVM(dirExtension);
+            
+            console.log("Return value: " + returnValue['retVal'] + "\nError message:\n\n" + returnValue['msg']);
+
+            //If Java returned an error, send it back to the client
+            if (returnValue['retVal'] != 0) {
+                res.send(returnValue);
+                return;
+            }
+
+            //Otherwise, read the proposed task from the information file and send it to the client
+            getLastLine(workingDirectory, function(jsonObject){
+                const electedTask = jsonObject[ELECTED_TASK_FIELD];
+               
+                returnValue[ELECTED_TASK_FIELD] = electedTask;
+                console.log("Return value after accept process: " + JSON.stringify(returnValue));
+                res.send(returnValue);
+            });
+        } else {
+            //Writing the information to the file failed, return error to client
+            var info = {retVal: 1, msg: error};
+            res.send(info);
+        }
+    });
 }
 
 /*
@@ -94,8 +160,36 @@ const acceptProcess = async function(req, res) {
     ``agreement'' value to ``1'' (i.e., ``False'')
 */
 const declineProcess = async function(req, res) {
-    const workingDirectory = req.body.field1;
-    await updateInformation(req.body.field1, AGREEMENT_NO);
+    const dirExtension = req.body.field1;
+    const workingDirectory = req.body.field2;
+
+    //Update information file to say that the user declined the process
+    await updateInformation(workingDirectory, AGREEMENT_NO, function(error){
+        if (error === 0){
+            //Launch the Java program
+            const returnValue = launchJVM(dirExtension);
+            
+            console.log("Return value: " + returnValue['retVal'] + "\nError message:\n\n" + returnValue['msg']);
+
+            //If Java returned an error, send it back to the client
+            if (returnValue['retVal'] != 0) {
+                res.send(returnValue);
+                return;
+            }
+
+            //Otherwise, read the proposed task from the information file and send it to the client
+            getLastLine(workingDirectory, function(jsonObject){
+                const electedTask = jsonObject[ELECTED_TASK_FIELD];
+               
+                returnValue[ELECTED_TASK_FIELD] = electedTask;
+                res.send(returnValue);
+            });
+        } else {
+            //Writing the information to the file failed, return error to client
+            var info = {retVal: 1, msg: error};
+            res.send(info);
+        }
+    });
 }
 
 const uploadBPMN = async function(req, res) {
@@ -132,17 +226,18 @@ const computeTask = async function(req, res) {
     }
     
     //Otherwise, read the proposed task from the file and send it to the client
-    var jsonObject = await getLastLine(workingDirectory);
-    const electedTask = jsonObject[ELECTED_TASK_FIELD];
-    console.log("Elected task: " + electedTask);
+    getLastLine(workingDirectory, function(jsonObject){
+        const electedTask = jsonObject[ELECTED_TASK_FIELD];
+        console.log("Elected task: " + electedTask);
 
-    returnValue[ELECTED_TASK_FIELD] = electedTask;
-    res.send(returnValue);
+        returnValue[ELECTED_TASK_FIELD] = electedTask;
+        res.send(returnValue);
+    });
 }
 
 //Private methods
 
-async function getLastLine(workingDirectory){
+async function getLastLine(workingDirectory, callback){
     //Resolve information file path
     const infoFilePath = path.resolve(workingDirectory, INFO_FILE);
     console.log("Info file: " + infoFilePath);
@@ -171,7 +266,7 @@ async function getLastLine(workingDirectory){
     //Parse last line as a JSON object
     var jsonObject = JSON.parse(lastLine);
 
-    return jsonObject;
+    callback(jsonObject);
 }
 
 /*
@@ -182,10 +277,11 @@ async function getLastLine(workingDirectory){
     its field ``AGREEMENT_FIELD'' by the ``agreement'' argument of this
     function and appends the JSON object at the end of the file.
 */
-async function updateInformation(workingDirectory, agreement){
+async function updateInformation(workingDirectory, agreement, callback){
     //Resolve information file path
     const infoFilePath = path.resolve(workingDirectory, INFO_FILE);
     console.log("Info file: " + infoFilePath);
+    console.log("-------------------" + agreement + "-------------------------")
 
     //Open file
     const fileStream = fs.createReadStream(infoFilePath);
@@ -213,12 +309,21 @@ async function updateInformation(workingDirectory, agreement){
     //Set its field ``AGREEMENT_FIELD'' to the ``agreement'' argument value
     jsonObject[AGREEMENT_FIELD] = agreement;
 
-    console.log('Modified object: ' + jsonObject.toString());
+    console.log('Modified object: ' + JSON.stringify(jsonObject));
 
     //Write the modified JSON object at the end of the file
     var stream = fs.createWriteStream(infoFilePath, {flags:'a'});
-    stream.write(JSON.stringify(jsonObject) + '\n');
-    stream.end();
+    stream.write(JSON.stringify(jsonObject) + '\n', function(error){
+        if (!error) {
+            callback(0);
+        } else {
+            callback('An error occurred: ' + JSON.stringify(error));
+        }
+
+        stream.end();
+
+        console.log("update func ended");
+    });
 }
 
 function launchJVM(workingDirectoryExtension){

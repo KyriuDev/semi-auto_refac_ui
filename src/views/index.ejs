@@ -16,7 +16,7 @@
     <form method="post" id="bpmnUpload" enctype="multipart/form-data">
         <div>
             BPMN Process:
-            <input id="bpmnInput" name="file" type="file" placeholder="test">
+            <input id="bpmnInput" name="file" type="file" placeholder="test" value="test" for="caca">
         </div> 
         <div>
             Pool of Resources:
@@ -33,7 +33,6 @@
     <div id="canvas1"></div>
 
     <div>
-        <button id="computeTask">Compute Next Task</button>
         <label id="moveTaskText"></label>
         <button id="acceptTask">Yes</button>
         <button id="declineTask">No</button>
@@ -42,11 +41,13 @@
     <div id="canvas2"></div>
 
     <div>
-        <label id="gainText"><b>GAIN: 1UT/1.9%</b></label>
+        <label id="gainText"><b>Test</b></label>
         <label id="acceptProcessText">Are you satisfied with the new version of the process?</label>
         <button id="acceptProcess">Yes</button>
         <button id="declineProcess">No</button>
     </div>
+
+    <div class="loader" id="pg_bar"></div>
 
     <script>
     const form = document.getElementById('bpmnUpload');
@@ -59,16 +60,25 @@
 
     async function upload() {
       try {
+        //Show progres bar
+        $(document.getElementById('pg_bar')).show();
+
+        //Retrieve uploaded files
         const donneesFormulaire = new FormData();
         const bpmnFileInput = document.getElementById('bpmnInput');
         const resourceFileInput = document.getElementById('resourcesInput');
         const dependencyFileInput = document.getElementById('dependenciesInput');
 
+        //Show error if no BPMN file was given
         if (bpmnFileInput.files.length == 0) {
             alert("Error: You should upload at least the BPMN process.");
             return;
         }
 
+        //Show the canvas and the compute task button
+        $(document.getElementById('canvas1')).show();
+        $(document.getElementById('computeTask')).show();
+        
         donneesFormulaire.append("bpmn", bpmnFileInput.files[0]);
 
         if (resourceFileInput.files.length != 0) {
@@ -89,8 +99,31 @@
         sessionStorage.setItem('workingDirectory', resultat["directoryPath"]);
         sessionStorage.setItem('originalProcessFullPath', resultat["originalProcessFullPath"]);
         sessionStorage.setItem('originalProcessSubPath', resultat["originalProcessSubPath"]);
- 
-        showDiagram(resultat["originalProcessSubPath"], '#canvas1');
+        processesArray = [resultat["originalProcessSubPath"]]
+        sessionStorage.setItem('processesArray', JSON.stringify(processesArray));
+       
+        await showDiagram(processesArray[0], 1);
+
+        const info = {
+                field1: sessionStorage.getItem('workingDirectoryExtension'),
+                field2: sessionStorage.getItem('workingDirectory')
+            };
+        
+        $.post("/computeTask", info, function(result){
+            const retVal = result['retVal'];
+
+            if (retVal !== 0) {
+                const error = result['msg'];
+                alert("The computation of the task encountered an unexpected error:\n\n" + error);
+            } else {
+                const electedTask = result['electedTask'];
+                document.getElementById('moveTaskText').innerText = "Do you agree moving task \"" + electedTask + "\"?";
+                $(document.getElementById('moveTaskText')).show();
+                $(document.getElementById('acceptTask')).show();
+                $(document.getElementById('declineTask')).show();
+                $(document.getElementById('pg_bar')).hide();
+            }
+        });
       } catch (erreur) {
         alert(erreur);
       }
@@ -98,7 +131,7 @@
 
     async function showDiagram(path, containerToUse){
         var bpmnViewer = new BpmnJS({
-            container: containerToUse
+            container: '#canvas' + containerToUse
         });
 
         async function openDiagram(bpmnXML) {
@@ -116,6 +149,8 @@
 
     $(document).ready(function(){
         $("#computeTask").click(function(){
+            $(document.getElementById('pg_bar')).show();
+
             const info = {
                 field1: sessionStorage.getItem('workingDirectoryExtension'),
                 field2: sessionStorage.getItem('workingDirectory')
@@ -130,11 +165,17 @@
                 } else {
                     const electedTask = result['electedTask'];
                     document.getElementById('moveTaskText').innerText = "Do you agree moving task \"" + electedTask + "\"?";
+                    $(document.getElementById('moveTaskText')).show();
+                    $(document.getElementById('acceptTask')).show();
+                    $(document.getElementById('declineTask')).show();
+                    $(document.getElementById('pg_bar')).hide();
                 }
             });
         });
 
         $("#acceptTask").click(function(){
+            $(document.getElementById('pg_bar')).show();
+
             const info = {
                 field1: sessionStorage.getItem('workingDirectoryExtension'),
                 field2: sessionStorage.getItem('workingDirectory')
@@ -147,37 +188,143 @@
                     const error = result['msg'];
                     alert("The computation of the new process encountered an unexpected error:\n\n" + error);
                 } else {
-                    const aetGain = returnValue['aetGain'];
-                    const percentageGain = returnValue['percentageGain'];
-                    const bpmnFilePath = returnValue['bpmnFilePath'];
+                    const aetGain = result['aetGain'];
+                    const percentageGain = result['percentageGain'];
+                    const bpmnFilePath = result['bpmnFilePath'];
 
-                    showDiagram(bpmnFilePath, '#canvas2');
-                    document.getElementById('gainText').innerText = "<b>GAIN: " + aetGain + "UT/" + percentageGain + "%</b>"
+                    processesArray = JSON.parse(sessionStorage.getItem('processesArray'));
+                    processesArray.push(bpmnFilePath);
+                    sessionStorage.setItem('processesArray', JSON.stringify(processesArray));
+                  
+                    //alert(JSON.stringify(processesArray));
+
+                    $(document.getElementById('pg_bar')).hide();
+                    $(document.getElementById('canvas2')).show();
+                    $(document.getElementById('gainText')).show();
+                    $(document.getElementById('acceptProcessText')).show();
+                    $(document.getElementById('acceptProcess')).show();
+                    $(document.getElementById('declineProcess')).show();
+
+                    showDiagram(bpmnFilePath, 2);
+                    document.getElementById('gainText').innerHTML = "<b>GAIN: " + aetGain + "UT/" + percentageGain + "%</b>"
                 }
             });
         });
 
         $("#declineTask").click(function(){
-            const info = {field1: sessionStorage.getItem('workingDirectory')}
+            const info = {
+                field1: sessionStorage.getItem('workingDirectoryExtension'),
+                field2: sessionStorage.getItem('workingDirectory')
+            };
+        
+            $(document.getElementById('moveTaskText')).hide();
+            $(document.getElementById('acceptTask')).hide();
+            $(document.getElementById('declineTask')).hide();
+            $(document.getElementById('pg_bar')).show();
 
             $.post("/declineTask", info, function(result){
-                
+                const retVal = result['retVal'];
+
+                if (retVal !== 0) {
+                    const error = result['msg'];
+                    alert("The computation of the new task encountered an unexpected error:\n\n" + error);
+                } else {
+                    const electedTask = result['electedTask'];
+                    document.getElementById('moveTaskText').innerText = "Do you agree moving task \"" + electedTask + "\"?";
+                    $(document.getElementById('moveTaskText')).show();
+                    $(document.getElementById('acceptTask')).show();
+                    $(document.getElementById('declineTask')).show();
+                    $(document.getElementById('pg_bar')).hide();
+                }
             });
         });
 
         $("#acceptProcess").click(function(){
-            const info = {field1: sessionStorage.getItem('workingDirectory')}
+            const info = {
+                field1: sessionStorage.getItem('workingDirectoryExtension'),
+                field2: sessionStorage.getItem('workingDirectory')
+            };
+            
+            $(document.getElementById('pg_bar')).show();
+            document.getElementById('canvas1').innerHTML = "";
+            document.getElementById('canvas2').innerHTML = "";
+            $(document.getElementById('canvas2')).hide();
+            $(document.getElementById('gainText')).hide();
+            $(document.getElementById('acceptProcessText')).hide();
+            $(document.getElementById('acceptProcess')).hide();
+            $(document.getElementById('declineProcess')).hide();
+            $(document.getElementById('moveTaskText')).hide();
+            $(document.getElementById('acceptTask')).hide();
+            $(document.getElementById('declineTask')).hide();
+
+            processesArray = JSON.parse(sessionStorage.getItem('processesArray'));
+            lastFile = processesArray[processesArray.length - 1];
+            showDiagram(lastFile, 1);
 
             $.post("/acceptProcess", info, function(result){
-                
+                const retVal = result['retVal'];
+
+                if (retVal !== 0) {
+                    const error = result['msg'];
+                    alert("The computation of the new task encountered an unexpected error:\n\n" + error);
+                } else {
+                    const electedTask = result['electedTask'];
+
+                    if (electedTask === "") {
+                        //We proposed all the tasks to move
+                        document.getElementById('moveTaskText').innerText = "All the tasks have been moved, the process is as optimised as possible.";
+                    } else {
+                        document.getElementById('moveTaskText').innerText = "Do you agree moving task \"" + electedTask + "\"?";
+                        $(document.getElementById('acceptTask')).show();
+                        $(document.getElementById('declineTask')).show();
+                    }
+
+                    $(document.getElementById('pg_bar')).hide();
+                    $(document.getElementById('moveTaskText')).show();
+                }
             });
         });
 
         $("#declineProcess").click(function(){
-            const info = {field1: sessionStorage.getItem('workingDirectory')}
+            const info = {
+                field1: sessionStorage.getItem('workingDirectoryExtension'),
+                field2: sessionStorage.getItem('workingDirectory')
+            };
+        
+            $(document.getElementById('pg_bar')).show();
+            document.getElementById('canvas1').innerHTML = "";
+            document.getElementById('canvas2').innerHTML = "";
+            $(document.getElementById('canvas2')).hide();
+            $(document.getElementById('gainText')).hide();
+            $(document.getElementById('acceptProcessText')).hide();
+            $(document.getElementById('acceptProcess')).hide();
+            $(document.getElementById('declineProcess')).hide();
+            $(document.getElementById('moveTaskText')).hide();
+            $(document.getElementById('acceptTask')).hide();
+            $(document.getElementById('declineTask')).hide();
+
+            processesArray = JSON.parse(sessionStorage.getItem('processesArray'));
+            fileToRemove = processesArray.pop();
+            previousFile = processesArray[processesArray.length - 1];
+            showDiagram(previousFile, 1);
+            sessionStorage.setItem('processesArray', JSON.stringify(processesArray));
+
+            //alert(JSON.stringify(processesArray));
 
             $.post("/declineProcess", info, function(result){
-                
+                const retVal = result['retVal'];
+
+                if (retVal !== 0) {
+                    const error = result['msg'];
+                    alert("The computation of the new task encountered an unexpected error:\n\n" + error);
+                } else {
+                    const electedTask = result['electedTask'];
+                    document.getElementById('moveTaskText').innerText = "Do you agree moving task \"" + electedTask + "\"?";
+                    $(document.getElementById('moveTaskText')).show();
+                    $(document.getElementById('acceptTask')).show();
+                    $(document.getElementById('declineTask')).show();
+                    $(document.getElementById('pg_bar')).hide();
+                }
             });
         });
     });

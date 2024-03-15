@@ -1,0 +1,3 @@
+{"agreement":2,"electedTask":"T1"}
+{"agreement":0,"electedTask":"T1"}
+{"aet":101.5,"agreement":2,"bpmnPath":"/home/quentin/Documents/semi-auto_refac_ui/public/refactoring/1710513458973/refactored_process_1.bpmn","electedTask":"T1","bpmnFilename":"refactored_process_1.bpmn","gain":33.200000000000216}

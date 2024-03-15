@@ -54,7 +54,7 @@ route.post("/uploadBPMN", changeDate, cpUpload, updateBody, mainController.uploa
 route.post("/acceptTask", mainController.acceptTask)
 route.post("/declineTask", mainController.declineTask)
 route.post("/acceptProcess", mainController.acceptProcess)
-route.post("/declineProcess", mainController.acceptProcess)
+route.post("/declineProcess", mainController.declineProcess)
 route.post("/computeTask", mainController.computeTask)
 
 route.all("/*", function (req, res) {
