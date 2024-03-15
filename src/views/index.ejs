@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Natural Language to BPMN</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/bpmn-js.css">
+
+    <script src="/bpmn-navigated-viewer.development.js"></script>
+    <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
+</head>
+
+<body>
+    <form method="post" id="bpmnUpload" enctype="multipart/form-data">
+        <div>
+            BPMN Process:
+            <input id="bpmnInput" name="file" type="file" placeholder="test">
+        </div> 
+        <div>
+            Pool of Resources:
+            <input id="resourcesInput" name="file" type="file">
+        </div> 
+        <div>
+            Process Dependencies:
+            <input id="dependenciesInput" name="file" type="file">
+        </div> 
+        <button type="submit">Upload Data</button>
+    </form>
+
+    <div class="loader" id="pg_bar"></div>
+    <div id="canvas1"></div>
+
+    <div>
+        <button id="computeTask">Compute Next Task</button>
+        <label id="moveTaskText"></label>
+        <button id="acceptTask">Yes</button>
+        <button id="declineTask">No</button>
+    </div>
+
+    <div id="canvas2"></div>
+
+    <div>
+        <label id="gainText"><b>GAIN: 1UT/1.9%</b></label>
+        <label id="acceptProcessText">Are you satisfied with the new version of the process?</label>
+        <button id="acceptProcess">Yes</button>
+        <button id="declineProcess">No</button>
+    </div>
+
+    <script>
+    const form = document.getElementById('bpmnUpload');
+    form.addEventListener('submit', handleSubmit);
+
+    function handleSubmit(event) {
+      event.preventDefault();
+      upload();
+    }
+
+    async function upload() {
+      try {
+        const donneesFormulaire = new FormData();
+        const bpmnFileInput = document.getElementById('bpmnInput');
+        const resourceFileInput = document.getElementById('resourcesInput');
+        const dependencyFileInput = document.getElementById('dependenciesInput');
+
+        if (bpmnFileInput.files.length == 0) {
+            alert("Error: You should upload at least the BPMN process.");
+            return;
+        }
+
+        donneesFormulaire.append("bpmn", bpmnFileInput.files[0]);
+
+        if (resourceFileInput.files.length != 0) {
+            donneesFormulaire.append("resources", resourceFileInput.files[0]);
+        }
+
+        if (dependencyFileInput.files.length != 0) {
+            donneesFormulaire.append("dependencies", dependencyFileInput.files[0]);
+        }
+
+        const reponse = await fetch("http://localhost:3000/uploadBPMN", {
+          method: "POST",
+          body: donneesFormulaire,
+        });
+        const resultat = await reponse.json();
+        
+        sessionStorage.setItem('workingDirectoryExtension', resultat["directoryExtension"])
+        sessionStorage.setItem('workingDirectory', resultat["directoryPath"]);
+        sessionStorage.setItem('originalProcessFullPath', resultat["originalProcessFullPath"]);
+        sessionStorage.setItem('originalProcessSubPath', resultat["originalProcessSubPath"]);
+ 
+        showDiagram(resultat["originalProcessSubPath"], '#canvas1');
+      } catch (erreur) {
+        alert(erreur);
+      }
+    }
+
+    async function showDiagram(path, containerToUse){
+        var bpmnViewer = new BpmnJS({
+            container: containerToUse
+        });
+
+        async function openDiagram(bpmnXML) {
+            try {
+               bpmnViewer.importXML(bpmnXML);
+               var canvas = bpmnViewer.get('canvas');
+               canvas.zoom('fit-viewport');
+            } catch (err) {
+              alert(err);
+            }
+        }
+
+        $.get(path, openDiagram);
+    }
+
+    $(document).ready(function(){
+        $("#computeTask").click(function(){
+            const info = {
+                field1: sessionStorage.getItem('workingDirectoryExtension'),
+                field2: sessionStorage.getItem('workingDirectory')
+            };
+        
+            $.post("/computeTask", info, function(result){
+                const retVal = result['retVal'];
+
+                if (retVal !== 0) {
+                    const error = result['msg'];
+                    alert("The computation of the task encountered an unexpected error:\n\n" + error);
+                } else {
+                    const electedTask = result['electedTask'];
+                    document.getElementById('moveTaskText').innerText = "Do you agree moving task \"" + electedTask + "\"?";
+                }
+            });
+        });
+
+        $("#acceptTask").click(function(){
+            const info = {
+                field1: sessionStorage.getItem('workingDirectoryExtension'),
+                field2: sessionStorage.getItem('workingDirectory')
+            };
+        
+            $.post("/acceptTask", info, function(result){
+                const retVal = result['retVal'];
+
+                if (retVal !== 0) {
+                    const error = result['msg'];
+                    alert("The computation of the new process encountered an unexpected error:\n\n" + error);
+                } else {
+                    const aetGain = returnValue['aetGain'];
+                    const percentageGain = returnValue['percentageGain'];
+                    const bpmnFilePath = returnValue['bpmnFilePath'];
+
+                    showDiagram(bpmnFilePath, '#canvas2');
+                    document.getElementById('gainText').innerText = "<b>GAIN: " + aetGain + "UT/" + percentageGain + "%</b>"
+                }
+            });
+        });
+
+        $("#declineTask").click(function(){
+            const info = {field1: sessionStorage.getItem('workingDirectory')}
+
+            $.post("/declineTask", info, function(result){
+                
+            });
+        });
+
+        $("#acceptProcess").click(function(){
+            const info = {field1: sessionStorage.getItem('workingDirectory')}
+
+            $.post("/acceptProcess", info, function(result){
+                
+            });
+        });
+
+        $("#declineProcess").click(function(){
+            const info = {field1: sessionStorage.getItem('workingDirectory')}
+
+            $.post("/declineProcess", info, function(result){
+                
+            });
+        });
+    });
+    
+	function changeLabel(value){
+	    var satisfaction = "";
+
+	    if (value === "0"){
+	    	satisfaction = "Completely unsatisfied";
+	    }
+	    else if (value === "25"){
+	    	satisfaction = "Unsatisfied";
+	    }
+	    else if (value === "50"){
+	    	satisfaction = "Moderately satisfied";
+	    }
+	    else if (value === "75"){
+	    	satisfaction = "Satisfied";
+	    }
+	    else if (value === "100"){
+	    	satisfaction = "Completely satisfied";
+	    }
+
+	    document.getElementById('satisfaction_value').value = satisfaction;
+	}
+
+	$(document).ready(function(){
+	    const url = new URL(window.location.href);
+	    const spec = url.searchParams.get('msg');
+
+	    if (spec !== ""){
+		    if (spec === "apsec1"){
+                document.getElementById('input_et').value = "First, the user ApplyOnline.\nThen, he UploadsPassport, so that the company can EvaluateApplication.\nOnce the company EvaluateApplication, it decides between RejectApplication or AcceptApplication.\nIf they AcceptApplication, they then have to PayForFees, before PreparingAndDeliveringPassport.";            
+            } else if (spec === "apsec2"){
+                document.getElementById('input_et').value = "First, the user AppliesOnline.\nThen, in a loop necessarily the user UploadsPassport before the system ChecksQuality, and optionally the system RequiresNewUpload.\nAfter ChecksQuality, the company EvaluatesApplication.\nThen, the company has the choice to RejectApplication or AcceptApplication.\nIf the company AcceptApplication, then they have to PayForFees and PreparePassport, after what they DeliverPassport.";
+            } else if (spec === "facs"){
+                document.getElementById('input_et').value = "First, the system ProcessApplication.\nThen, if the client has an account, the system RetrieveCustomerProfile and AnalyseCustomerProfile.\nOtherwise, the banker CreateProfile.\nOnce done, the system IdentifyAccountType, and the banker PrepareAccountOpening.\nAfter that, the user ReceiveSupportDocuments, the banker UpdateInfoRecords, and the system also performs some BackgroundVerification at the same time than ReviewApplication.\nFinally, the bank either NotifyRejection, or GenerateAccountNumber, SendStarterKit, and ActivateAccount.";
+            } else if (spec === "foclasa"){
+                document.getElementById('input_et').value = "The process starts with a loop in which the user necessarily FillInForms before undergo MedicalCheckUp and process to either a VisaApplication or a VisaVerification, while optionally receiving a Reject.\nOnce this information has been received, the company either ValidatePartially the documents, and send a message to the user to AskForAdditionalDocuments, or Validate.\nFinally, the system UpdatePersonnelDatabase, which allows the financial service to AnticipateWages, and the human resources service to PrepareWelcomeKit, after what the system ArchiveAllDocuments.";
+            } else if (spec === "icsoc"){
+                document.getElementById('input_et').value = "The MissionPaperwork can be done in parallel of the FlightBooking, the VisaDelivery, and the HotelReservation.\nThe HotelReservation precedes the Vaccination, and everything must be done before ReturnDocuments.\nFinally Reimbursement and ArchiveDocs can start.";
+            } else if (spec === "ifm"){
+                document.getElementById('input_et').value = "DecideNormalPostOrSpecialCarrier executes before a choice between either RequestQuotes preceding AssignCarrier, or CheckExtraInsurance before either TakeOutExtraInsurance or FillInPostLabel.\nIn parallel of this, PackageGoods is executed.\nFinally, MovePackageToPickArea starts.";
+            } else if (spec === "is"){
+                document.getElementById('input_et').value = "At the beginning, the secretary EvaluatePatientRequest.\nThen, the doctor either ExamineAndInterviewPatient, MakeDiagnosis and ConductDiagnosticWorkup one after the other, or EvaluateHospitalisation in order to chose between TreatExacerbations or PrescribeTherapy.\nFinally, he PlanExamination.";
+            } else if (spec === "jss"){sessionStorage.setItem('path', filePath);
+                document.getElementById('input_et').value = "First, the user EvaluateFirmnessColorAndDamages.\nThen, the machine ReadPalletLabels before ReadTemperatureAndHumidity.\nAfter that, the system RegisterPalletStorage and simultaneously AdjustRedfrigeratorTemperature before StorePalletInRefrigerator.\nThese steps allow a worker to SelectSampleToAnalyse, which is followed by a technician that AnalyseSample.\nFinally, depending on the result of the analysis, two mutually exclusive paths can occur.\nIn the first one, the system sequentially ActivateAlarm, RegisterPalletRejection and DiscardPallet.\nIn the second one, the system ManageShipment before either MovePalletToNonPriorityArea, or ReducePrice before MovePalletToPriorityArea and finally RegisterPalletShipment.";
+            } else if (spec === "scc"){
+                document.getElementById('input_et').value = "First, the user FillInForms, the doctor performs a MedicalCheckup, and the administration does the VisaApplication.\nThen, the user SubmitDocuments.\nIf DocumentsRejected, nothing happens.\nOtherwise, if DocumentsAccepted, the administration proceeds to the ArchiveAllDocuments, and the system UpdatePersonnelDatabase so that the staff can AnticipateWages and PrepareWelcomeKit.";
+            } else if (spec === "scp"){
+                document.getElementById('input_et').value = "First, the administration has to give the MissionAuthorization.\nWhile the user BookFlight, the administrative staff can do the MissionPaperwork.\nAfter the booking his flight, the user is allowed to ReserveHotel, TakeInsurance, CheckLocalTransportation, and DoVaccination.\nOnce he has ReserveHotel and finished his MissionPaperwork, he can start the VisaProcess.\nIn the end, the administration ArchiveMission.";
+            } else if (spec === "wrla"){
+                document.getElementById('input_et').value = "First of all, an employee CollectGoods brought by a client.\nThen, in parallel, the client PayForDelivery and the employee PrepareParcel.\nThe company can either DeliverByCar or DeliverByDrone (depending on the distance for example).";
+	    }
+	    }
+
+	    $("#input_bt").click(function(){
+                var obj = {field1: document.getElementById('api_key_et').value.trim().replace(/"/g, '').replace(/'/g, '').replace(/[\n\r]/g, ' '),
+                            field2: document.getElementById('input_et').value.trim().replace(/"/g, '').replace(/'/g, '').replace(/[\n\r]/g, ' ')};
+
+
+		if (!obj['field1'] || !obj['field2']) {
+		    alert("Please fill both password and input fields before submitting.");
+		    return;
+		}
+
+                $(document.getElementById('pg_bar')).show();
+                $(document.getElementById('reset_bt')).hide();
+                $(document.getElementById('input_bt')).hide();
+                $(document.getElementById('input_et')).prop('readonly', true);
+                $(document.getElementById('api_key_et')).prop('readonly', true);
+                $(document.getElementById('download_bt')).hide();
+                $(document.getElementById('ok_bt')).hide();  
+                $(document.getElementById('satisfaction_range_tv')).hide();
+                $(document.getElementById('satisfaction_range')).hide();
+		document.getElementById('satisfaction_range').value = "100";
+                $(document.getElementById('satisfaction_value')).hide();
+		document.getElementById('satisfaction_value').value = "Completely satisfied";
+                $(document.getElementById('canvas1')).hide();
+                document.getElementById('canvas1').innerHTML = "";
+
+                $.post("/launchJVM", obj, function(result){
+                    $(document.getElementById('pg_bar')).hide();
+                    $(document.getElementById('reset_bt')).show();
+                    $(document.getElementById('input_bt')).show();  
+                    $(document.getElementById('input_et')).prop('readonly', false);
+                    $(document.getElementById('api_key_et')).prop('readonly', false);
+
+                    var resValue = result['value'];
+                    var filePath = result['path'];
+		    var extension = result['extension'];
+                    sessionStorage.setItem('path', filePath);
+                    sessionStorage.setItem('extension', extension);
+        
+		    if (resValue > 0){
+			var msg = "";
+
+			if (resValue === 1){
+			    msg = "An unexpected error occurred while processing your data. Do you want to send a report to the staff?";
+			} else if (resValue === 2) {
+			    msg = "GPT model is currently unavailable. The issue may resolve automatically, but do you want to send a report to the staff?";
+			} else if (resValue === 3) {
+			    msg = "Could not generate necessarily configuration files. Do you want to send a report to the staff?";
+			} else if (resValue === 4) {
+			    msg = "GPT answer could not be parsed (malformed). Do you want to send a report to the staff? Please try to modify your specification and try again.";
+			} else if (resValue === 5) {
+			    msg = "GPT answer generated 0 AST. Do you want to send a report to the staff? Please try to modify your specification and try again.";
+			} else if (resValue === 6) {
+			    msg = "Answers generated by GPT are contradictory. Do you want to send a report to the staff? Please try to modify your specification and try again.";
+			} else if (resValue === 7) {
+			    msg = "Converting AST to BPMN failed. Do you want to send a report to the staff?";
+			} else if (resValue === 8) {
+			    msg = "GPT answer generated 0 constraint. Do you want to send a report to the staff? Please try to modify your specification and try again.";
+			} else if (resValue === 9) {
+			    msg = "Final AST is badly formed and/or violate some constraints. Do you want to send a report to the staff?";
+		        } else if (resValue === 10) {
+			    msg = "The generated BPMN process is malformed. Do you want to send a report to the staff?";
+			} else if (resValue === 11) {
+			    msg = "The graphical generation of the BPMN process failed. Do you want to send a report to the staff?";
+	         	} else if (resValue === -2) {
+			    msg = "The generation of the password file failed. Do you want to send a report to the staff?";
+			} else {
+			    msg = "Res value |" + resValue + "| is unknown!!! Do you want to send a report to the staff?";
+			}
+
+			if (window.confirm(msg)){
+		            var info = {field1: filePath, field2: extension};
+			    $.post("/sendEmail", info, function(result){
+			        var resValue = result['value'];
+			                    	
+		                if (resValue === 1){
+				    alert("An error occurr while sending the report: " + result['error']);
+		                } else if (resValue === 0) {
+				    alert("The report was sent to the staff.");
+		                }
+	                    });
+	                }
+                    } else if (resValue === 0){
+                        //The process was correctly generated => show views
+                        $(document.getElementById('download_bt')).show();
+                        $(document.getElementById('ok_bt')).show();  
+                        $(document.getElementById('satisfaction_tv')).show();
+                        $(document.getElementById('canvas')).show();
+                	$(document.getElementById('satisfaction_range_tv')).show();
+                	$(document.getElementById('satisfaction_range')).show();
+                	$(document.getElementById('satisfaction_value')).show();
+
+                        const shortFilePath = filePath.replace("/home/quentin_nivon/UI/public", "");
+                        const diagramUrl = "http://34.155.234.66:3000" + shortFilePath + extension + "/generated_process.bpmn";
+                        var bpmnViewer = new BpmnJS({
+                            container: '#canvas'
+                        });
+
+                        async function openDiagram(bpmnXML) {
+                            try {
+                               bpmnViewer.importXML(bpmnXML);
+                               var canvas = bpmnViewer.get('canvas');
+                               canvas.zoom('fit-viewport');
+                            } catch (err) {
+                              alert(err);
+                            }
+                        }
+
+                        $.get(diagramUrl, openDiagram);                     
+                    } else if (resValue === -1) {
+			alert("The password that you specified is incorrect. Please correct it, or send an email to quentin.nivon@inria.fr to obtain a valid one.");
+		    }
+                });
+            }); 
+
+            $("#download_bt").click(function(){
+                const filePath = sessionStorage.getItem("path");
+                
+                if (filePath !== null){
+                    const extension = sessionStorage.getItem("extension");
+                    const shortFilePath = filePath.replace("/home/quentin_nivon/UI/public", "");
+                    const url = "http://34.155.234.66:3000" + shortFilePath + extension + "/generated_process.bpmn";
+                    window.open(url);    
+                }
+            });
+
+            $("#ok_bt").click(function(){
+		const satisfactionValue = document.getElementById('satisfaction_range').value;
+
+		var obj;
+
+		if (satisfactionValue === "100"){
+		    obj = {field1: sessionStorage.getItem("path"),
+                            field2: sessionStorage.getItem("extension"),
+			    field3: satisfactionValue};
+		}
+		else {
+		    var userMessage = prompt("Please specify what you disliked in the generated process");
+		    var cleanUserMessage = userMessage.trim().replace(/"/g, '').replace(/[\n\r]/g, ' ');	
+		    obj = {field1: sessionStorage.getItem("path"),
+                            field2: sessionStorage.getItem("extension"),
+			    field3: satisfactionValue,
+			    field4: cleanUserMessage};
+		}
+
+                $.post("/addSatisfactionFile", obj, function(result){
+                    var resValue = result['value'];
+                    
+                    if (resValue === 1) {
+                        var error = result['error'];
+                        alert("An error occurred: " + error);
+                    } else if (resValue === 0) {
+                        alert("Your vote has been taken into account, thank you!");
+                    }
+               
+                    $(document.getElementById('ok_bt')).hide();  
+                    $(document.getElementById('satisfaction_range_tv')).hide();
+                    $(document.getElementById('satisfaction_value')).hide();
+                    $(document.getElementById('satisfaction_range')).hide();
+                });
+            });
+
+            $("#reset_bt").click(function(){
+                $(document.getElementById('pg_bar')).hide();
+                $(document.getElementById('reset_bt')).show();
+                $(document.getElementById('input_bt')).show();
+                $(document.getElementById('input_et')).prop('readonly', false);
+                document.getElementById('input_et').value = "";
+                $(document.getElementById('api_key_et')).prop('readonly', false);
+                $(document.getElementById('download_bt')).hide();
+                $(document.getElementById('ok_bt')).hide();  
+                $(document.getElementById('satisfaction_tv')).hide();
+                $(document.getElementById('canvas')).hide();
+                document.getElementById('canvas').innerHTML = "";
+                $(document.getElementById('satisfaction_range_tv')).hide();
+                $(document.getElementById('satisfaction_range')).hide();
+		document.getElementById('satisfaction_range').value = "100";
+                $(document.getElementById('satisfaction_value')).hide();
+		document.getElementById('satisfaction_value').value = "Completely satisfied";
+                sessionStorage.clear();
+            });
+        });
+    </script>
+</body>
+
+</html> 
