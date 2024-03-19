@@ -1,0 +1,3 @@
+{"agreement":2,"electedTask":"Generate Account Number"}
+{"agreement":1,"electedTask":"Generate Account Number"}
+{"agreement":2,"electedTask":"Process Application"}

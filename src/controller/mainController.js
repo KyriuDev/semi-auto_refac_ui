@@ -335,9 +335,11 @@ function launchJVM(workingDirectoryExtension){
 
     try {
         var stdout = process.execSync(javaRequest);
+        console.log("Java request ended properly")
         returnValue['retVal'] = 0;
         returnValue['msg'] = stdout;
     } catch (error) {
+        console.log("Java request failed.")
         returnValue['retVal'] = 1;
         returnValue['msg'] = error.message;
     }
