@@ -1,7 +1,0 @@
-{"agreement":2,"electedTask":"T1"}
-{"agreement":1,"electedTask":"T1"}
-{"agreement":2,"electedTask":"T3"}
-{"agreement":0,"electedTask":"T3"}
-{"aet":282.7999999999995,"agreement":2,"bpmnPath":"/home/quentin/Documents/semi-auto_refac_ui/public/refactoring/1710514850949/refactored_process_1.bpmn","electedTask":"T3","bpmnFilename":"refactored_process_1.bpmn","gain":-17.199999999999875}
-{"aet":282.7999999999995,"agreement":0,"bpmnPath":"/home/quentin/Documents/semi-auto_refac_ui/public/refactoring/1710514850949/refactored_process_1.bpmn","electedTask":"T3","bpmnFilename":"refactored_process_1.bpmn","gain":-17.199999999999875}
-{"agreement":2,"electedTask":"T2"}

@@ -1,3 +1,0 @@
-{"agreement":2,"electedTask":"Generate Account Number"}
-{"agreement":0,"electedTask":"Generate Account Number"}
-{"aet":104.73900000000002,"agreement":2,"bpmnPath":"/home/quentin/Documents/semi-auto_refac_ui/public/refactoring/1710860946906/refactored_process_1.bpmn","electedTask":"Generate Account Number","bpmnFilename":"refactored_process_1.bpmn","gain":1.4659999999999798}

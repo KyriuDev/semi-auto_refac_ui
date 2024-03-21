@@ -1,2 +1,0 @@
-{"agreement":2,"electedTask":"T1"}
-{"agreement":0,"electedTask":"T1"}

@@ -38,6 +38,11 @@ const changeDate = (req, res, next) => {
 
 //Function used to update the req body
 const updateBody = (req, res, next) => {
+  //Escape backslash on Windows otherwise JSON parser complains
+  if (process.platform === "win32") {
+    currentDirPath = currentDirPath.replace(/\\/g, "\\\\");
+  }
+
   req.body = "{\"date\": \"" + date + "\", \"path\": \"" + currentDirPath + "\"}";
   console.log("JSON body: " + req.body)
   next(); // Call next() to pass control to the next middleware

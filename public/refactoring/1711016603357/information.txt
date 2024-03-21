@@ -1,0 +1,3 @@
+{"agreement":2,"electedTask":"ValidatePartially"}
+{"agreement":0,"electedTask":"ValidatePartially"}
+{"aet":21.936,"agreement":2,"bpmnPath":"/home/quentin/Documents/semi-auto_refac_ui/public/refactoring/1711016603357/refactored_process_1.bpmn","electedTask":"ValidatePartially","bpmnFilename":"refactored_process_1.bpmn","gain":0.3309999999999995}

@@ -1,9 +1,0 @@
-{"agreement":2,"electedTask":"T1"}
-{"agreement":0,"electedTask":"T1"}
-{"aet":155.5,"agreement":2,"bpmnPath":"/home/quentin/Documents/semi-auto_refac_ui/public/refactoring/1710518040841/refactored_process_1.bpmn","electedTask":"T1","bpmnFilename":"refactored_process_1.bpmn","gain":36.400000000000006}
-{"aet":155.5,"agreement":0,"bpmnPath":"/home/quentin/Documents/semi-auto_refac_ui/public/refactoring/1710518040841/refactored_process_1.bpmn","electedTask":"T1","bpmnFilename":"refactored_process_1.bpmn","gain":36.400000000000006}
-{"agreement":2,"electedTask":"T3"}
-{"agreement":0,"electedTask":"T3"}
-{"aet":154.8920000000002,"agreement":2,"bpmnPath":"/home/quentin/Documents/semi-auto_refac_ui/public/refactoring/1710518040841/refactored_process_2.bpmn","electedTask":"T3","bpmnFilename":"refactored_process_2.bpmn","gain":0.6079999999998051}
-{"aet":154.8920000000002,"agreement":0,"bpmnPath":"/home/quentin/Documents/semi-auto_refac_ui/public/refactoring/1710518040841/refactored_process_2.bpmn","electedTask":"T3","bpmnFilename":"refactored_process_2.bpmn","gain":0.6079999999998051}
-{"agreement":2,"electedTask":"T2"}
