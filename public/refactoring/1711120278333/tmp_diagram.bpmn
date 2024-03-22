@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI">
+  <bpmn:process id="Process_oZd04lZN" isExecutable="false">
+    <bpmn:parallelGateway id="Gateway_hxhjvv">
+      <bpmn:incoming>Flow_j3Lpc8</bpmn:incoming>
+      <bpmn:outgoing>Flow_qmrxwf</bpmn:outgoing>
+      <bpmn:outgoing>Flow_7XjMmb</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:endEvent id="EndEvent">
+      <bpmn:incoming>Flow_c0hfiD</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_PW5JCG" name="" sourceRef="ReceiveSupportDocuments" targetRef="Gateway_puJrVI" />
+    <bpmn:sequenceFlow id="Flow_f7HluJ" name="" sourceRef="SendOfflineStarterKit" targetRef="Gateway_QxIcIA" />
+    <bpmn:sequenceFlow id="Flow_1xZnyz" name="" sourceRef="Gateway_KazNew" targetRef="RetrieveCustomerProfile" />
+    <bpmn:sequenceFlow id="Flow_wSw9Sz" name="" sourceRef="RetrieveCustomerProfile" targetRef="AnalyseCustomerProfile" />
+    <bpmn:sequenceFlow id="Flow_Snmh93" name="" sourceRef="StartEvent" targetRef="ProcessApplication" />
+    <bpmn:serviceTask id="BackgroundVerification" name="Background Verification (3) &#60;1 server&#62;">
+      <bpmn:outgoing>Flow_FggfWq</bpmn:outgoing>
+      <bpmn:incoming>Flow_KwIFzO</bpmn:incoming>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="NotifyRejection" name="Notify Rejection (1) &#60;1 server&#62;">
+      <bpmn:incoming>Flow_OwcrKk</bpmn:incoming>
+      <bpmn:outgoing>Flow_xfcZKA</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_LXjDzc" name="" sourceRef="ReviewApplication" targetRef="Gateway_vugUZ2" />
+    <bpmn:exclusiveGateway id="Gateway_k38ZS2">
+      <bpmn:outgoing>Flow_xZ9o6H</bpmn:outgoing>
+      <bpmn:incoming>Flow_VBazjL</bpmn:incoming>
+      <bpmn:incoming>Flow_li0HJ3</bpmn:incoming>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="SendOfflineStarterKit" name="Send Offline Starter Kit (10) &#60;1 support_staff, 1 mailing_staff&#62;">
+      <bpmn:incoming>Flow_qmrxwf</bpmn:incoming>
+      <bpmn:outgoing>Flow_f7HluJ</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:parallelGateway id="Gateway_QxIcIA">
+      <bpmn:outgoing>Flow_YHw38W</bpmn:outgoing>
+      <bpmn:incoming>Flow_vd5I7t</bpmn:incoming>
+      <bpmn:incoming>Flow_f7HluJ</bpmn:incoming>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_svrUqh" name="" sourceRef="Gateway_1a3mfa" targetRef="Gateway_kUgXaE" />
+    <bpmn:exclusiveGateway id="Gateway_KazNew">
+      <bpmn:outgoing>Flow_XFHCJT</bpmn:outgoing>
+      <bpmn:incoming>Flow_R3Wr6j</bpmn:incoming>
+      <bpmn:outgoing>Flow_1xZnyz</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_lJ2SzI" name="" sourceRef="SendOnlineStarterKit" targetRef="GenerateAccountNumber" />
+    <bpmn:exclusiveGateway id="Gateway_vugUZ2">
+      <bpmn:outgoing>Flow_D3zOOk</bpmn:outgoing>
+      <bpmn:incoming>Flow_LXjDzc</bpmn:incoming>
+      <bpmn:outgoing>Flow_fniROr</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_7XjMmb" name="" sourceRef="Gateway_hxhjvv" targetRef="SendOnlineStarterKit" />
+    <bpmn:userTask id="PrepareAccountOpening" name="Prepare Account Opening (8) &#60;1 bank_advisor&#62;">
+      <bpmn:outgoing>Flow_kJ1cda</bpmn:outgoing>
+      <bpmn:incoming>Flow_xZ9o6H</bpmn:incoming>
+    </bpmn:userTask>
+    <bpmn:userTask id="UpdateInfoRecords" name="Update Info Records (10) &#60;1 technical_staff&#62;">
+      <bpmn:incoming>Flow_WAv4cl</bpmn:incoming>
+      <bpmn:outgoing>Flow_sC48Xm</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_WAv4cl" name="" sourceRef="Gateway_kUgXaE" targetRef="UpdateInfoRecords" />
+    <bpmn:sequenceFlow id="Flow_vd5I7t" name="" sourceRef="GenerateAccountNumber" targetRef="Gateway_QxIcIA" />
+    <bpmn:exclusiveGateway id="Gateway_1a3mfa">
+      <bpmn:incoming>Flow_kJ1cda</bpmn:incoming>
+      <bpmn:incoming>Flow_CsGs6d</bpmn:incoming>
+      <bpmn:outgoing>Flow_svrUqh</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="SendOnlineStarterKit" name="Send Online Starter Kit (7) &#60;1 support_staff&#62;">
+      <bpmn:outgoing>Flow_lJ2SzI</bpmn:outgoing>
+      <bpmn:incoming>Flow_7XjMmb</bpmn:incoming>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_li0HJ3" name="" sourceRef="AnalyseCustomerProfile" targetRef="Gateway_k38ZS2" />
+    <bpmn:sequenceFlow id="Flow_xfcZKA" name="" sourceRef="NotifyRejection" targetRef="Gateway_ak9tMM" />
+    <bpmn:sequenceFlow id="Flow_c0hfiD" name="" sourceRef="Gateway_ak9tMM" targetRef="EndEvent" />
+    <bpmn:userTask id="ReceiveSupportDocuments" name="Receive Support Documents (5) &#60;1 support_staff&#62;">
+      <bpmn:incoming>Flow_VEjnxo</bpmn:incoming>
+      <bpmn:outgoing>Flow_PW5JCG</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_YHw38W" name="" sourceRef="Gateway_QxIcIA" targetRef="ActivateAccount" />
+    <bpmn:sequenceFlow id="Flow_CsGs6d" name="" sourceRef="RequestAdditionalInformation" targetRef="Gateway_1a3mfa" />
+    <bpmn:sequenceFlow id="Flow_VBazjL" name="" sourceRef="CreateProfile" targetRef="Gateway_k38ZS2" />
+    <bpmn:sequenceFlow id="Flow_xZ9o6H" name="" sourceRef="Gateway_k38ZS2" targetRef="PrepareAccountOpening" />
+    <bpmn:sequenceFlow id="Flow_fniROr" name="" sourceRef="Gateway_vugUZ2" targetRef="RequestAdditionalInformation" />
+    <bpmn:sequenceFlow id="Flow_kJ1cda" name="" sourceRef="PrepareAccountOpening" targetRef="Gateway_1a3mfa" />
+    <bpmn:sequenceFlow id="Flow_D3zOOk" name="" sourceRef="Gateway_vugUZ2" targetRef="Gateway_wIM1sy" />
+    <bpmn:sequenceFlow id="Flow_XFHCJT" name="" sourceRef="Gateway_KazNew" targetRef="CreateProfile" />
+    <bpmn:sequenceFlow id="Flow_OwcrKk" name="" sourceRef="Gateway_wIM1sy" targetRef="NotifyRejection" />
+    <bpmn:sequenceFlow id="Flow_FggfWq" name="" sourceRef="BackgroundVerification" targetRef="Gateway_puJrVI" />
+    <bpmn:exclusiveGateway id="Gateway_wIM1sy">
+      <bpmn:outgoing>Flow_j3Lpc8</bpmn:outgoing>
+      <bpmn:incoming>Flow_D3zOOk</bpmn:incoming>
+      <bpmn:outgoing>Flow_OwcrKk</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_7C91ku" name="" sourceRef="ActivateAccount" targetRef="Gateway_ak9tMM" />
+    <bpmn:sequenceFlow id="Flow_sC48Xm" name="" sourceRef="UpdateInfoRecords" targetRef="Gateway_puJrVI" />
+    <bpmn:startEvent id="StartEvent">
+      <bpmn:outgoing>Flow_Snmh93</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Xsyw5o" name="" sourceRef="Gateway_puJrVI" targetRef="ReviewApplication" />
+    <bpmn:userTask id="CreateProfile" name="Create Profile (10) &#60;1 database, 1 bank_advisor&#62;">
+      <bpmn:incoming>Flow_XFHCJT</bpmn:incoming>
+      <bpmn:outgoing>Flow_VBazjL</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:scriptTask id="ActivateAccount" name="Activate Account (4) &#60;1 server, 1 bank_advisor&#62;">
+      <bpmn:incoming>Flow_YHw38W</bpmn:incoming>
+      <bpmn:outgoing>Flow_7C91ku</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:parallelGateway id="Gateway_puJrVI">
+      <bpmn:outgoing>Flow_Xsyw5o</bpmn:outgoing>
+      <bpmn:incoming>Flow_FggfWq</bpmn:incoming>
+      <bpmn:incoming>Flow_PW5JCG</bpmn:incoming>
+      <bpmn:incoming>Flow_sC48Xm</bpmn:incoming>
+    </bpmn:parallelGateway>
+    <bpmn:parallelGateway id="Gateway_kUgXaE">
+      <bpmn:outgoing>Flow_WAv4cl</bpmn:outgoing>
+      <bpmn:outgoing>Flow_VEjnxo</bpmn:outgoing>
+      <bpmn:outgoing>Flow_KwIFzO</bpmn:outgoing>
+      <bpmn:incoming>Flow_svrUqh</bpmn:incoming>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_qmrxwf" name="" sourceRef="Gateway_hxhjvv" targetRef="SendOfflineStarterKit" />
+    <bpmn:sequenceFlow id="Flow_j3Lpc8" name="" sourceRef="Gateway_wIM1sy" targetRef="Gateway_hxhjvv" />
+    <bpmn:exclusiveGateway id="Gateway_ak9tMM">
+      <bpmn:incoming>Flow_7C91ku</bpmn:incoming>
+      <bpmn:incoming>Flow_xfcZKA</bpmn:incoming>
+      <bpmn:outgoing>Flow_c0hfiD</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="ReviewApplication" name="Review Application (5) &#60;1 bank_advisor&#62;">
+      <bpmn:incoming>Flow_Xsyw5o</bpmn:incoming>
+      <bpmn:outgoing>Flow_LXjDzc</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="RetrieveCustomerProfile" name="Retrieve Customer Profile (2) &#60;1 database&#62;">
+      <bpmn:incoming>Flow_1xZnyz</bpmn:incoming>
+      <bpmn:outgoing>Flow_wSw9Sz</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_VEjnxo" name="" sourceRef="Gateway_kUgXaE" targetRef="ReceiveSupportDocuments" />
+    <bpmn:userTask id="AnalyseCustomerProfile" name="Analyse Customer Profile (5) &#60;1 bank_advisor&#62;">
+      <bpmn:outgoing>Flow_li0HJ3</bpmn:outgoing>
+      <bpmn:incoming>Flow_wSw9Sz</bpmn:incoming>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_R3Wr6j" name="" sourceRef="ProcessApplication" targetRef="Gateway_KazNew" />
+    <bpmn:serviceTask id="GenerateAccountNumber" name="Generate Account Number (1) &#60;1 server, 1 database&#62;">
+      <bpmn:incoming>Flow_lJ2SzI</bpmn:incoming>
+      <bpmn:outgoing>Flow_vd5I7t</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_KwIFzO" name="" sourceRef="Gateway_kUgXaE" targetRef="BackgroundVerification" />
+    <bpmn:serviceTask id="ProcessApplication" name="Process Application (2) &#60;1 server&#62;">
+      <bpmn:incoming>Flow_Snmh93</bpmn:incoming>
+      <bpmn:outgoing>Flow_R3Wr6j</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="RequestAdditionalInformation" name="Request Additional Information (6) &#60;1 bank_advisor&#62;">
+      <bpmn:outgoing>Flow_CsGs6d</bpmn:outgoing>
+      <bpmn:incoming>Flow_fniROr</bpmn:incoming>
+    </bpmn:userTask>
+  </bpmn:process>
+</bpmn:definitions>

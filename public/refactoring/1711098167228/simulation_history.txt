@@ -1,0 +1,2 @@
+{"aet":105.095,"resArray":[{"server":17.456754640312695},{"database":16.176699305956127},{"mailing_staff":5.848330770133469},{"technical_staff":23.608719581582964},{"support_staff":28.995362800024505},{"bank_advisor":80.06794497341913}]}
+{"aet":103.126,"resArray":[{"server":17.90340536629689},{"database":15.821459512324793},{"mailing_staff":6.28999945453472},{"technical_staff":23.960206948869715},{"support_staff":30.230803396191835},{"bank_advisor":81.1200037211441}]}

@@ -1,0 +1,31 @@
+{"agreement":2,"electedTask":"Generate Account Number"}
+{"agreement":0,"electedTask":"Generate Account Number"}
+{"aet":62.24700000000003,"agreement":2,"bpmnPath":"C:\\Users\\Yismael\\OneDrive\\Escritorio\\inria\\semi-auto_refac_ui\\public\\refactoring\\1710931396643\\refactored_process_1.bpmn","electedTask":"Generate Account Number","bpmnFilename":"refactored_process_1.bpmn","gain":0.369999999999969}
+{"aet":62.24700000000003,"agreement":0,"bpmnPath":"C:\\Users\\Yismael\\OneDrive\\Escritorio\\inria\\semi-auto_refac_ui\\public\\refactoring\\1710931396643\\refactored_process_1.bpmn","electedTask":"Generate Account Number","bpmnFilename":"refactored_process_1.bpmn","gain":0.369999999999969}
+{"agreement":2,"electedTask":"Retrieve Customer Profile"}
+{"agreement":0,"electedTask":"Retrieve Customer Profile"}
+{"aet":60.93899999999998,"agreement":2,"bpmnPath":"C:\\Users\\Yismael\\OneDrive\\Escritorio\\inria\\semi-auto_refac_ui\\public\\refactoring\\1710931396643\\refactored_process_2.bpmn","electedTask":"Retrieve Customer Profile","bpmnFilename":"refactored_process_2.bpmn","gain":1.3080000000000496}
+{"aet":60.93899999999998,"agreement":0,"bpmnPath":"C:\\Users\\Yismael\\OneDrive\\Escritorio\\inria\\semi-auto_refac_ui\\public\\refactoring\\1710931396643\\refactored_process_2.bpmn","electedTask":"Retrieve Customer Profile","bpmnFilename":"refactored_process_2.bpmn","gain":1.3080000000000496}
+{"agreement":2,"electedTask":"Process Application"}
+{"agreement":1,"electedTask":"Process Application"}
+{"agreement":2,"electedTask":"Background Verification"}
+{"agreement":1,"electedTask":"Background Verification"}
+{"agreement":2,"electedTask":"Activate Account"}
+{"agreement":1,"electedTask":"Activate Account"}
+{"agreement":2,"electedTask":"Receive Support Documents"}
+{"agreement":1,"electedTask":"Receive Support Documents"}
+{"agreement":2,"electedTask":"Review Application"}
+{"agreement":1,"electedTask":"Review Application"}
+{"agreement":2,"electedTask":"Analyse Customer Profile"}
+{"agreement":1,"electedTask":"Analyse Customer Profile"}
+{"agreement":2,"electedTask":"Send Online Starter Kit"}
+{"agreement":1,"electedTask":"Send Online Starter Kit"}
+{"agreement":2,"electedTask":"Prepare Account Opening"}
+{"agreement":1,"electedTask":"Prepare Account Opening"}
+{"agreement":2,"electedTask":"Send Offline Starter Kit"}
+{"agreement":1,"electedTask":"Send Offline Starter Kit"}
+{"agreement":2,"electedTask":"Update Info Records"}
+{"agreement":1,"electedTask":"Update Info Records"}
+{"agreement":3,"electedTask":""}
+{"agreement":1,"electedTask":""}
+{"agreement":0,"electedTask":""}

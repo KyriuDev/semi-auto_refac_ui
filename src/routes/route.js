@@ -37,11 +37,12 @@ const changeDate = (req, res, next) => {
 };
 
 //Function used to update the req body
+
 const updateBody = (req, res, next) => {
-  req.body = "{\"date\": \"" + date + "\", \"path\": \"" + currentDirPath + "\"}";
-  console.log("JSON body: " + req.body)
-  next(); // Call next() to pass control to the next middleware
-};
+    req.body = "{\"date\": \"" + date + "\", \"path\": \"" + currentDirPath.replace(/\\/g, "\\\\") + "\"}";
+    console.log("JSON body: " + req.body)
+    next(); // Call next() to pass control to the next middleware
+  };
 
 route.get("/", mainController.index)
 route.get("/maintenance", mainController.maintenance)
@@ -54,7 +55,7 @@ route.post("/uploadBPMN", changeDate, cpUpload, updateBody, mainController.uploa
 route.post("/acceptTask", mainController.acceptTask)
 route.post("/declineTask", mainController.declineTask)
 route.post("/acceptProcess", mainController.acceptProcess)
-route.post("/declineProcess", mainController.acceptProcess)
+route.post("/declineProcess", mainController.declineProcess)
 route.post("/computeTask", mainController.computeTask)
 
 route.all("/*", function (req, res) {

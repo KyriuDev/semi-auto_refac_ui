@@ -1,0 +1,1 @@
+{"aet":64.151,"resArray":[{"server":14.410134062505},{"database":4.20818575630741},{"mailing_staff":6.471749854066326},{"technical_staff":52.228341691813895},{"support_staff":12.029530087433113},{"bank_advisor":29.20809079794436}]}
