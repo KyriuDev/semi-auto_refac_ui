@@ -52,6 +52,7 @@
                 name="file"
                 type="file"
                 placeholder="test"
+                accept=".bpmn, .xml"
                 class="w-full flex-grow text-sm text-blue-900 border rounded-full border-blue-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-300 file:text-blue-900 hover:file:bg-blue-100"
               />
             </div>
@@ -96,9 +97,9 @@
         >
           <div id="canvas1" class="w-full h-[250px] overflow-hidden"></div>
           <div
-            class="flex flex-col md:flex-row justify-between items-center py-2"
+            class="flex flex-col md:flex-row items-center py-2"
           >
-            <div class="mt-4">
+            <div>
               <label id="moveTaskText" class="ml-4"></label>
             </div>
 
@@ -135,13 +136,14 @@
               ><b>GAIN: 1UT/1.9%</b></label
             >
          
-            <label id="acceptProcessText" class="mt-2 "
-              >Are you satisfied with the new version of the process?</label
-            >
+          
       
            
           </div>   
           <div class="flex space-x-2 justify-center md:justify-end w-full md:w-auto px-4">
+            <label id="acceptProcessText" class="mt-2 "
+            >Are you satisfied with the new version of the process?</label
+          >
            <button
               id="acceptProcess"
               class="bg-green-500 text-white px-4 py-2 rounded-lg "

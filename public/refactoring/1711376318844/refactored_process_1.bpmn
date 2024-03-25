@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL">
+  <bpmn:process id="Process_a2VURvwt" isExecutable="true">
+    <bpmn:startEvent id="StartEvent">
+      <bpmn:outgoing>sequenceFlow-b953435f-77ae-446b-8c99-00614ad69d60</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent">
+      <bpmn:incoming>sequenceFlow-70acfc7a-d139-4848-804f-8718e00d7386</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="BackgroundVerification" name="Background Verification (3) &#60;1 server&#62;">
+      <bpmn:incoming>sequenceFlow-fd6dd232-b896-424c-b9ac-cd22829c10df</bpmn:incoming>
+      <bpmn:outgoing>sequenceFlow-0c7ae199-ffc1-47fd-b8c3-611cc18a15bf</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="NotifyRejection" name="Notify Rejection (1) &#60;1 server&#62;">
+      <bpmn:outgoing>sequenceFlow-8712dfa8-8d23-4fee-a3a4-1ec25ba7121b</bpmn:outgoing>
+      <bpmn:incoming>sequenceFlow-5c74726f-b364-4fcc-b715-cb7780f5d6b9</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:task id="SendOfflineStarterKit" name="Send Offline Starter Kit (10) &#60;1 support_staff, 1 mailing_staff&#62;">
+      <bpmn:outgoing>sequenceFlow-2912f40c-87aa-4f29-85e8-398a4f9bb02f</bpmn:outgoing>
+      <bpmn:incoming>sequenceFlow-5783f50e-39ac-4ca0-8714-abd964bb431d</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_g9wEyy">
+      <bpmn:outgoing>sequenceFlow-58e14618-6704-4a0b-95c2-c43769c29ccb</bpmn:outgoing>
+      <bpmn:incoming>sequenceFlow-7fd9905a-807f-45f0-b79b-3b1748dcecf2</bpmn:incoming>
+      <bpmn:outgoing>sequenceFlow-df36418b-e5ac-4b65-a832-48833776295e</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="PrepareAccountOpening" name="Prepare Account Opening (8) &#60;1 bank_advisor&#62;">
+      <bpmn:outgoing>sequenceFlow-b60140a5-0bbf-43ee-acb5-5c040d17e3bd</bpmn:outgoing>
+      <bpmn:incoming>sequenceFlow-25a5cf73-a866-4b2b-afa8-966f4102e0ae</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:task id="UpdateInfoRecords" name="Update Info Records (10) &#60;1 technical_staff&#62;">
+      <bpmn:incoming>sequenceFlow-b5e97c56-1526-45a5-a200-62d7808919e7</bpmn:incoming>
+      <bpmn:outgoing>sequenceFlow-cf751192-620f-4d8b-94f5-2610f6b6351a</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_f5GqCa">
+      <bpmn:outgoing>sequenceFlow-05a1f276-ac02-4474-b232-d3e87e7703fd</bpmn:outgoing>
+      <bpmn:incoming>sequenceFlow-b60140a5-0bbf-43ee-acb5-5c040d17e3bd</bpmn:incoming>
+      <bpmn:incoming>sequenceFlow-9bb4195d-174b-4a5a-b2bc-9c9ae9399503</bpmn:incoming>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="SendOnlineStarterKit" name="Send Online Starter Kit (7) &#60;1 support_staff&#62;">
+      <bpmn:outgoing>sequenceFlow-76f92531-5b2d-4770-9e1b-615faa156695</bpmn:outgoing>
+      <bpmn:incoming>sequenceFlow-bde456e3-81fa-49ee-930f-6a82eb406e09</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:task id="ReceiveSupportDocuments" name="Receive Support Documents (5) &#60;1 support_staff&#62;">
+      <bpmn:outgoing>sequenceFlow-263849a4-e8b1-45a7-a3bb-188cd862d024</bpmn:outgoing>
+      <bpmn:incoming>sequenceFlow-0af3c8b3-e5a9-47eb-8b11-6f02c8e7e75f</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_coec3T">
+      <bpmn:incoming>sequenceFlow-e9799cb5-7a4f-4bd4-b065-4f84dc2c59fd</bpmn:incoming>
+      <bpmn:outgoing>sequenceFlow-945ddf1a-ac64-472f-a807-9c798f1cdc99</bpmn:outgoing>
+      <bpmn:outgoing>sequenceFlow-8def403c-a332-4302-ad02-6301ed6e0058</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:parallelGateway id="Gateway_67Ns5X">
+      <bpmn:incoming>sequenceFlow-cf751192-620f-4d8b-94f5-2610f6b6351a</bpmn:incoming>
+      <bpmn:incoming>sequenceFlow-263849a4-e8b1-45a7-a3bb-188cd862d024</bpmn:incoming>
+      <bpmn:outgoing>sequenceFlow-1506c472-d010-4cce-890d-924111befb32</bpmn:outgoing>
+      <bpmn:incoming>sequenceFlow-0c7ae199-ffc1-47fd-b8c3-611cc18a15bf</bpmn:incoming>
+    </bpmn:parallelGateway>
+    <bpmn:parallelGateway id="Gateway_UzRGCP">
+      <bpmn:incoming>sequenceFlow-2912f40c-87aa-4f29-85e8-398a4f9bb02f</bpmn:incoming>
+      <bpmn:outgoing>sequenceFlow-63b12fa3-cea4-44c1-99e5-3bc58fe3db92</bpmn:outgoing>
+      <bpmn:incoming>sequenceFlow-7900f640-8b45-4103-a21c-7b2476b73ac5</bpmn:incoming>
+    </bpmn:parallelGateway>
+    <bpmn:exclusiveGateway id="Gateway_9TZpq8">
+      <bpmn:outgoing>sequenceFlow-5c74726f-b364-4fcc-b715-cb7780f5d6b9</bpmn:outgoing>
+      <bpmn:outgoing>sequenceFlow-e9fc3aea-5c66-4d38-9a5b-18541a9c41cc</bpmn:outgoing>
+      <bpmn:incoming>sequenceFlow-df36418b-e5ac-4b65-a832-48833776295e</bpmn:incoming>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="CreateProfile" name="Create Profile (10) &#60;1 database, 1 bank_advisor&#62;">
+      <bpmn:incoming>sequenceFlow-8def403c-a332-4302-ad02-6301ed6e0058</bpmn:incoming>
+      <bpmn:outgoing>sequenceFlow-0012817d-4ba2-47a2-be28-ccbce911b290</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="ActivateAccount" name="Activate Account (4) &#60;1 server, 1 bank_advisor&#62;">
+      <bpmn:incoming>sequenceFlow-63b12fa3-cea4-44c1-99e5-3bc58fe3db92</bpmn:incoming>
+      <bpmn:outgoing>sequenceFlow-239de0af-72dd-45ef-9f86-baac7bdd4e27</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:parallelGateway id="Gateway_hFB4kg">
+      <bpmn:incoming>sequenceFlow-05a1f276-ac02-4474-b232-d3e87e7703fd</bpmn:incoming>
+      <bpmn:outgoing>sequenceFlow-b5e97c56-1526-45a5-a200-62d7808919e7</bpmn:outgoing>
+      <bpmn:outgoing>sequenceFlow-0af3c8b3-e5a9-47eb-8b11-6f02c8e7e75f</bpmn:outgoing>
+      <bpmn:outgoing>sequenceFlow-fd6dd232-b896-424c-b9ac-cd22829c10df</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:task id="ReviewApplication" name="Review Application (5) &#60;1 bank_advisor&#62;">
+      <bpmn:outgoing>sequenceFlow-7fd9905a-807f-45f0-b79b-3b1748dcecf2</bpmn:outgoing>
+      <bpmn:incoming>sequenceFlow-1506c472-d010-4cce-890d-924111befb32</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:parallelGateway id="Gateway_bZU1SV">
+      <bpmn:outgoing>sequenceFlow-5783f50e-39ac-4ca0-8714-abd964bb431d</bpmn:outgoing>
+      <bpmn:outgoing>sequenceFlow-bde456e3-81fa-49ee-930f-6a82eb406e09</bpmn:outgoing>
+      <bpmn:incoming>sequenceFlow-e9fc3aea-5c66-4d38-9a5b-18541a9c41cc</bpmn:incoming>
+    </bpmn:parallelGateway>
+    <bpmn:task id="RetrieveCustomerProfile" name="Retrieve Customer Profile (2) &#60;1 database&#62;">
+      <bpmn:outgoing>sequenceFlow-a2453b00-5d6e-4612-a09e-62db2f5c873e</bpmn:outgoing>
+      <bpmn:incoming>sequenceFlow-945ddf1a-ac64-472f-a807-9c798f1cdc99</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:task id="AnalyseCustomerProfile" name="Analyse Customer Profile (5) &#60;1 bank_advisor&#62;">
+      <bpmn:incoming>sequenceFlow-a2453b00-5d6e-4612-a09e-62db2f5c873e</bpmn:incoming>
+      <bpmn:outgoing>sequenceFlow-33f309dc-2903-4b27-82f4-ad53659dedf7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_uI5nrD">
+      <bpmn:outgoing>sequenceFlow-25a5cf73-a866-4b2b-afa8-966f4102e0ae</bpmn:outgoing>
+      <bpmn:incoming>sequenceFlow-33f309dc-2903-4b27-82f4-ad53659dedf7</bpmn:incoming>
+      <bpmn:incoming>sequenceFlow-0012817d-4ba2-47a2-be28-ccbce911b290</bpmn:incoming>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="GenerateAccountNumber" name="Generate Account Number (1) &#60;1 server, 1 database&#62;">
+      <bpmn:incoming>sequenceFlow-76f92531-5b2d-4770-9e1b-615faa156695</bpmn:incoming>
+      <bpmn:outgoing>sequenceFlow-7900f640-8b45-4103-a21c-7b2476b73ac5</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="ProcessApplication" name="Process Application (2) &#60;1 server&#62;">
+      <bpmn:incoming>sequenceFlow-b953435f-77ae-446b-8c99-00614ad69d60</bpmn:incoming>
+      <bpmn:outgoing>sequenceFlow-e9799cb5-7a4f-4bd4-b065-4f84dc2c59fd</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_NpZq89">
+      <bpmn:incoming>sequenceFlow-8712dfa8-8d23-4fee-a3a4-1ec25ba7121b</bpmn:incoming>
+      <bpmn:incoming>sequenceFlow-239de0af-72dd-45ef-9f86-baac7bdd4e27</bpmn:incoming>
+      <bpmn:outgoing>sequenceFlow-70acfc7a-d139-4848-804f-8718e00d7386</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="RequestAdditionalInformation" name="Request Additional Information (6) &#60;1 bank_advisor&#62;">
+      <bpmn:incoming>sequenceFlow-58e14618-6704-4a0b-95c2-c43769c29ccb</bpmn:incoming>
+      <bpmn:outgoing>sequenceFlow-9bb4195d-174b-4a5a-b2bc-9c9ae9399503</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="sequenceFlow-1506c472-d010-4cce-890d-924111befb32" name="" sourceRef="Gateway_67Ns5X" targetRef="ReviewApplication" />
+    <bpmn:sequenceFlow id="sequenceFlow-8712dfa8-8d23-4fee-a3a4-1ec25ba7121b" name="" sourceRef="NotifyRejection" targetRef="Gateway_NpZq89" />
+    <bpmn:sequenceFlow id="sequenceFlow-bde456e3-81fa-49ee-930f-6a82eb406e09" name="" sourceRef="Gateway_bZU1SV" targetRef="SendOnlineStarterKit" />
+    <bpmn:sequenceFlow id="sequenceFlow-5c74726f-b364-4fcc-b715-cb7780f5d6b9" name="" sourceRef="Gateway_9TZpq8" targetRef="NotifyRejection" />
+    <bpmn:sequenceFlow id="sequenceFlow-0c7ae199-ffc1-47fd-b8c3-611cc18a15bf" name="" sourceRef="BackgroundVerification" targetRef="Gateway_67Ns5X" />
+    <bpmn:sequenceFlow id="sequenceFlow-b60140a5-0bbf-43ee-acb5-5c040d17e3bd" name="" sourceRef="PrepareAccountOpening" targetRef="Gateway_f5GqCa" />
+    <bpmn:sequenceFlow id="sequenceFlow-2912f40c-87aa-4f29-85e8-398a4f9bb02f" name="" sourceRef="SendOfflineStarterKit" targetRef="Gateway_UzRGCP" />
+    <bpmn:sequenceFlow id="sequenceFlow-05a1f276-ac02-4474-b232-d3e87e7703fd" name="" sourceRef="Gateway_f5GqCa" targetRef="Gateway_hFB4kg" />
+    <bpmn:sequenceFlow id="sequenceFlow-e9fc3aea-5c66-4d38-9a5b-18541a9c41cc" name="" sourceRef="Gateway_9TZpq8" targetRef="Gateway_bZU1SV" />
+    <bpmn:sequenceFlow id="sequenceFlow-b953435f-77ae-446b-8c99-00614ad69d60" name="" sourceRef="StartEvent" targetRef="ProcessApplication" />
+    <bpmn:sequenceFlow id="sequenceFlow-70acfc7a-d139-4848-804f-8718e00d7386" name="" sourceRef="Gateway_NpZq89" targetRef="EndEvent" />
+    <bpmn:sequenceFlow id="sequenceFlow-25a5cf73-a866-4b2b-afa8-966f4102e0ae" name="" sourceRef="Gateway_uI5nrD" targetRef="PrepareAccountOpening" />
+    <bpmn:sequenceFlow id="sequenceFlow-76f92531-5b2d-4770-9e1b-615faa156695" name="" sourceRef="SendOnlineStarterKit" targetRef="GenerateAccountNumber" />
+    <bpmn:sequenceFlow id="sequenceFlow-e9799cb5-7a4f-4bd4-b065-4f84dc2c59fd" name="" sourceRef="ProcessApplication" targetRef="Gateway_coec3T" />
+    <bpmn:sequenceFlow id="sequenceFlow-cf751192-620f-4d8b-94f5-2610f6b6351a" name="" sourceRef="UpdateInfoRecords" targetRef="Gateway_67Ns5X" />
+    <bpmn:sequenceFlow id="sequenceFlow-58e14618-6704-4a0b-95c2-c43769c29ccb" name="" sourceRef="Gateway_g9wEyy" targetRef="RequestAdditionalInformation" />
+    <bpmn:sequenceFlow id="sequenceFlow-7fd9905a-807f-45f0-b79b-3b1748dcecf2" name="" sourceRef="ReviewApplication" targetRef="Gateway_g9wEyy" />
+    <bpmn:sequenceFlow id="sequenceFlow-8def403c-a332-4302-ad02-6301ed6e0058" name="" sourceRef="Gateway_coec3T" targetRef="CreateProfile" />
+    <bpmn:sequenceFlow id="sequenceFlow-a2453b00-5d6e-4612-a09e-62db2f5c873e" name="" sourceRef="RetrieveCustomerProfile" targetRef="AnalyseCustomerProfile" />
+    <bpmn:sequenceFlow id="sequenceFlow-7900f640-8b45-4103-a21c-7b2476b73ac5" name="" sourceRef="GenerateAccountNumber" targetRef="Gateway_UzRGCP" />
+    <bpmn:sequenceFlow id="sequenceFlow-5783f50e-39ac-4ca0-8714-abd964bb431d" name="" sourceRef="Gateway_bZU1SV" targetRef="SendOfflineStarterKit" />
+    <bpmn:sequenceFlow id="sequenceFlow-df36418b-e5ac-4b65-a832-48833776295e" name="" sourceRef="Gateway_g9wEyy" targetRef="Gateway_9TZpq8" />
+    <bpmn:sequenceFlow id="sequenceFlow-239de0af-72dd-45ef-9f86-baac7bdd4e27" name="" sourceRef="ActivateAccount" targetRef="Gateway_NpZq89" />
+    <bpmn:sequenceFlow id="sequenceFlow-33f309dc-2903-4b27-82f4-ad53659dedf7" name="" sourceRef="AnalyseCustomerProfile" targetRef="Gateway_uI5nrD" />
+    <bpmn:sequenceFlow id="sequenceFlow-0012817d-4ba2-47a2-be28-ccbce911b290" name="" sourceRef="CreateProfile" targetRef="Gateway_uI5nrD" />
+    <bpmn:sequenceFlow id="sequenceFlow-945ddf1a-ac64-472f-a807-9c798f1cdc99" name="" sourceRef="Gateway_coec3T" targetRef="RetrieveCustomerProfile" />
+    <bpmn:sequenceFlow id="sequenceFlow-fd6dd232-b896-424c-b9ac-cd22829c10df" name="" sourceRef="Gateway_hFB4kg" targetRef="BackgroundVerification" />
+    <bpmn:sequenceFlow id="sequenceFlow-0af3c8b3-e5a9-47eb-8b11-6f02c8e7e75f" name="" sourceRef="Gateway_hFB4kg" targetRef="ReceiveSupportDocuments" />
+    <bpmn:sequenceFlow id="sequenceFlow-9bb4195d-174b-4a5a-b2bc-9c9ae9399503" name="" sourceRef="RequestAdditionalInformation" targetRef="Gateway_f5GqCa" />
+    <bpmn:sequenceFlow id="sequenceFlow-263849a4-e8b1-45a7-a3bb-188cd862d024" name="" sourceRef="ReceiveSupportDocuments" targetRef="Gateway_67Ns5X" />
+    <bpmn:sequenceFlow id="sequenceFlow-b5e97c56-1526-45a5-a200-62d7808919e7" name="" sourceRef="Gateway_hFB4kg" targetRef="UpdateInfoRecords" />
+    <bpmn:sequenceFlow id="sequenceFlow-63b12fa3-cea4-44c1-99e5-3bc58fe3db92" name="" sourceRef="Gateway_UzRGCP" targetRef="ActivateAccount" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Process_a2VURvwt">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_a2VURvwt" bpmnElement="Process_a2VURvwt">
+      <bpmndi:BPMNShape id="BPMNShape_ActivateAccount" bpmnElement="ActivateAccount">
+        <omgdc:Bounds x="2210" y="160" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_RetrieveCustomerProfile" bpmnElement="RetrieveCustomerProfile">
+        <omgdc:Bounds x="320" y="290" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ReceiveSupportDocuments" bpmnElement="ReceiveSupportDocuments">
+        <omgdc:Bounds x="1040" y="0" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_SendOnlineStarterKit" bpmnElement="SendOnlineStarterKit">
+        <omgdc:Bounds x="1820" y="80" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Gateway_67Ns5X" bpmnElement="Gateway_67Ns5X">
+        <omgdc:Bounds x="1190" y="170" width="40" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_AnalyseCustomerProfile" bpmnElement="AnalyseCustomerProfile">
+        <omgdc:Bounds x="470" y="260" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Gateway_coec3T" bpmnElement="Gateway_coec3T">
+        <omgdc:Bounds x="230" y="220" width="40" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Gateway_uI5nrD" bpmnElement="Gateway_uI5nrD">
+        <omgdc:Bounds x="620" y="215" width="40" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ProcessApplication" bpmnElement="ProcessApplication">
+        <omgdc:Bounds x="80" y="210" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_NotifyRejection" bpmnElement="NotifyRejection">
+        <omgdc:Bounds x="1670" y="280" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Gateway_9TZpq8" bpmnElement="Gateway_9TZpq8">
+        <omgdc:Bounds x="1550" y="140" width="40" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Gateway_g9wEyy" bpmnElement="Gateway_g9wEyy">
+        <omgdc:Bounds x="1430" y="170" width="40" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_StartEvent" bpmnElement="StartEvent">
+        <omgdc:Bounds x="0" y="225" width="30" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent" bpmnElement="EndEvent">
+        <omgdc:Bounds x="2450" y="238" width="30" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Gateway_UzRGCP" bpmnElement="Gateway_UzRGCP">
+        <omgdc:Bounds x="2120" y="170" width="40" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_SendOfflineStarterKit" bpmnElement="SendOfflineStarterKit">
+        <omgdc:Bounds x="1820" y="240" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ReviewApplication" bpmnElement="ReviewApplication">
+        <omgdc:Bounds x="1280" y="160" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_UpdateInfoRecords" bpmnElement="UpdateInfoRecords">
+        <omgdc:Bounds x="1040" y="160" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_PrepareAccountOpening" bpmnElement="PrepareAccountOpening">
+        <omgdc:Bounds x="710" y="228" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_RequestAdditionalInformation" bpmnElement="RequestAdditionalInformation">
+        <omgdc:Bounds x="1520" y="280" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Gateway_hFB4kg" bpmnElement="Gateway_hFB4kg">
+        <omgdc:Bounds x="950" y="193" width="40" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_BackgroundVerification" bpmnElement="BackgroundVerification">
+        <omgdc:Bounds x="1040" y="320" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Gateway_NpZq89" bpmnElement="Gateway_NpZq89">
+        <omgdc:Bounds x="2360" y="233" width="40" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_GenerateAccountNumber" bpmnElement="GenerateAccountNumber">
+        <omgdc:Bounds x="1970" y="110" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_CreateProfile" bpmnElement="CreateProfile">
+        <omgdc:Bounds x="320" y="130" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Gateway_bZU1SV" bpmnElement="Gateway_bZU1SV">
+        <omgdc:Bounds x="1700" y="140" width="40" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Gateway_f5GqCa" bpmnElement="Gateway_f5GqCa">
+        <omgdc:Bounds x="860" y="262" width="40" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-7fd9905a-807f-45f0-b79b-3b1748dcecf2" bpmnElement="sequenceFlow-7fd9905a-807f-45f0-b79b-3b1748dcecf2">
+        <omgdi:waypoint x="1380" y="190" />
+        <omgdi:waypoint x="1430" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-df36418b-e5ac-4b65-a832-48833776295e" bpmnElement="sequenceFlow-df36418b-e5ac-4b65-a832-48833776295e">
+        <omgdi:waypoint x="1470" y="182" />
+        <omgdi:waypoint x="1482" y="182" />
+        <omgdi:waypoint x="1482" y="160" />
+        <omgdi:waypoint x="1550" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-e9fc3aea-5c66-4d38-9a5b-18541a9c41cc" bpmnElement="sequenceFlow-e9fc3aea-5c66-4d38-9a5b-18541a9c41cc">
+        <omgdi:waypoint x="1590" y="152" />
+        <omgdi:waypoint x="1632" y="152" />
+        <omgdi:waypoint x="1632" y="160" />
+        <omgdi:waypoint x="1700" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-7900f640-8b45-4103-a21c-7b2476b73ac5" bpmnElement="sequenceFlow-7900f640-8b45-4103-a21c-7b2476b73ac5">
+        <omgdi:waypoint x="2070" y="140" />
+        <omgdi:waypoint x="2082" y="140" />
+        <omgdi:waypoint x="2082" y="190" />
+        <omgdi:waypoint x="2120" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-0af3c8b3-e5a9-47eb-8b11-6f02c8e7e75f" bpmnElement="sequenceFlow-0af3c8b3-e5a9-47eb-8b11-6f02c8e7e75f">
+        <omgdi:waypoint x="990" y="203" />
+        <omgdi:waypoint x="1002" y="203" />
+        <omgdi:waypoint x="1002" y="30" />
+        <omgdi:waypoint x="1040" y="30" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-e9799cb5-7a4f-4bd4-b065-4f84dc2c59fd" bpmnElement="sequenceFlow-e9799cb5-7a4f-4bd4-b065-4f84dc2c59fd">
+        <omgdi:waypoint x="180" y="240" />
+        <omgdi:waypoint x="230" y="240" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-05a1f276-ac02-4474-b232-d3e87e7703fd" bpmnElement="sequenceFlow-05a1f276-ac02-4474-b232-d3e87e7703fd">
+        <omgdi:waypoint x="900" y="274" />
+        <omgdi:waypoint x="912" y="274" />
+        <omgdi:waypoint x="912" y="213" />
+        <omgdi:waypoint x="950" y="213" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-25a5cf73-a866-4b2b-afa8-966f4102e0ae" bpmnElement="sequenceFlow-25a5cf73-a866-4b2b-afa8-966f4102e0ae">
+        <omgdi:waypoint x="660" y="235" />
+        <omgdi:waypoint x="672" y="235" />
+        <omgdi:waypoint x="672" y="258" />
+        <omgdi:waypoint x="710" y="258" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-b5e97c56-1526-45a5-a200-62d7808919e7" bpmnElement="sequenceFlow-b5e97c56-1526-45a5-a200-62d7808919e7">
+        <omgdi:waypoint x="990" y="213" />
+        <omgdi:waypoint x="1004" y="213" />
+        <omgdi:waypoint x="1004" y="190" />
+        <omgdi:waypoint x="1040" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-70acfc7a-d139-4848-804f-8718e00d7386" bpmnElement="sequenceFlow-70acfc7a-d139-4848-804f-8718e00d7386">
+        <omgdi:waypoint x="2400" y="253" />
+        <omgdi:waypoint x="2450" y="253" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-76f92531-5b2d-4770-9e1b-615faa156695" bpmnElement="sequenceFlow-76f92531-5b2d-4770-9e1b-615faa156695">
+        <omgdi:waypoint x="1920" y="110" />
+        <omgdi:waypoint x="1932" y="110" />
+        <omgdi:waypoint x="1932" y="140" />
+        <omgdi:waypoint x="1970" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-8712dfa8-8d23-4fee-a3a4-1ec25ba7121b" bpmnElement="sequenceFlow-8712dfa8-8d23-4fee-a3a4-1ec25ba7121b">
+        <omgdi:waypoint x="1770" y="310" />
+        <omgdi:waypoint x="1782" y="310" />
+        <omgdi:waypoint x="1782" y="253" />
+        <omgdi:waypoint x="2360" y="253" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-1506c472-d010-4cce-890d-924111befb32" bpmnElement="sequenceFlow-1506c472-d010-4cce-890d-924111befb32">
+        <omgdi:waypoint x="1230" y="190" />
+        <omgdi:waypoint x="1280" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-33f309dc-2903-4b27-82f4-ad53659dedf7" bpmnElement="sequenceFlow-33f309dc-2903-4b27-82f4-ad53659dedf7">
+        <omgdi:waypoint x="570" y="290" />
+        <omgdi:waypoint x="582" y="290" />
+        <omgdi:waypoint x="582" y="235" />
+        <omgdi:waypoint x="620" y="235" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-b953435f-77ae-446b-8c99-00614ad69d60" bpmnElement="sequenceFlow-b953435f-77ae-446b-8c99-00614ad69d60">
+        <omgdi:waypoint x="30" y="240" />
+        <omgdi:waypoint x="80" y="240" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-cf751192-620f-4d8b-94f5-2610f6b6351a" bpmnElement="sequenceFlow-cf751192-620f-4d8b-94f5-2610f6b6351a">
+        <omgdi:waypoint x="1140" y="190" />
+        <omgdi:waypoint x="1190" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-fd6dd232-b896-424c-b9ac-cd22829c10df" bpmnElement="sequenceFlow-fd6dd232-b896-424c-b9ac-cd22829c10df">
+        <omgdi:waypoint x="990" y="223" />
+        <omgdi:waypoint x="1002" y="223" />
+        <omgdi:waypoint x="1002" y="350" />
+        <omgdi:waypoint x="1040" y="350" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-2912f40c-87aa-4f29-85e8-398a4f9bb02f" bpmnElement="sequenceFlow-2912f40c-87aa-4f29-85e8-398a4f9bb02f">
+        <omgdi:waypoint x="1920" y="270" />
+        <omgdi:waypoint x="1932" y="270" />
+        <omgdi:waypoint x="1932" y="190" />
+        <omgdi:waypoint x="2120" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-239de0af-72dd-45ef-9f86-baac7bdd4e27" bpmnElement="sequenceFlow-239de0af-72dd-45ef-9f86-baac7bdd4e27">
+        <omgdi:waypoint x="2310" y="190" />
+        <omgdi:waypoint x="2322" y="190" />
+        <omgdi:waypoint x="2322" y="253" />
+        <omgdi:waypoint x="2360" y="253" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-0c7ae199-ffc1-47fd-b8c3-611cc18a15bf" bpmnElement="sequenceFlow-0c7ae199-ffc1-47fd-b8c3-611cc18a15bf">
+        <omgdi:waypoint x="1140" y="350" />
+        <omgdi:waypoint x="1152" y="350" />
+        <omgdi:waypoint x="1152" y="190" />
+        <omgdi:waypoint x="1190" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-bde456e3-81fa-49ee-930f-6a82eb406e09" bpmnElement="sequenceFlow-bde456e3-81fa-49ee-930f-6a82eb406e09">
+        <omgdi:waypoint x="1740" y="152" />
+        <omgdi:waypoint x="1782" y="152" />
+        <omgdi:waypoint x="1782" y="110" />
+        <omgdi:waypoint x="1820" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-8def403c-a332-4302-ad02-6301ed6e0058" bpmnElement="sequenceFlow-8def403c-a332-4302-ad02-6301ed6e0058">
+        <omgdi:waypoint x="270" y="232" />
+        <omgdi:waypoint x="282" y="232" />
+        <omgdi:waypoint x="282" y="160" />
+        <omgdi:waypoint x="320" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-5783f50e-39ac-4ca0-8714-abd964bb431d" bpmnElement="sequenceFlow-5783f50e-39ac-4ca0-8714-abd964bb431d">
+        <omgdi:waypoint x="1740" y="167" />
+        <omgdi:waypoint x="1782" y="167" />
+        <omgdi:waypoint x="1782" y="270" />
+        <omgdi:waypoint x="1820" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-a2453b00-5d6e-4612-a09e-62db2f5c873e" bpmnElement="sequenceFlow-a2453b00-5d6e-4612-a09e-62db2f5c873e">
+        <omgdi:waypoint x="420" y="320" />
+        <omgdi:waypoint x="432" y="320" />
+        <omgdi:waypoint x="432" y="290" />
+        <omgdi:waypoint x="470" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-945ddf1a-ac64-472f-a807-9c798f1cdc99" bpmnElement="sequenceFlow-945ddf1a-ac64-472f-a807-9c798f1cdc99">
+        <omgdi:waypoint x="270" y="247" />
+        <omgdi:waypoint x="282" y="247" />
+        <omgdi:waypoint x="282" y="320" />
+        <omgdi:waypoint x="320" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-9bb4195d-174b-4a5a-b2bc-9c9ae9399503" bpmnElement="sequenceFlow-9bb4195d-174b-4a5a-b2bc-9c9ae9399503">
+        <omgdi:waypoint x="1520" y="322" />
+        <omgdi:waypoint x="1508" y="322" />
+        <omgdi:waypoint x="1508" y="282" />
+        <omgdi:waypoint x="860" y="282" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-b60140a5-0bbf-43ee-acb5-5c040d17e3bd" bpmnElement="sequenceFlow-b60140a5-0bbf-43ee-acb5-5c040d17e3bd">
+        <omgdi:waypoint x="810" y="258" />
+        <omgdi:waypoint x="822" y="258" />
+        <omgdi:waypoint x="822" y="282" />
+        <omgdi:waypoint x="860" y="282" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-263849a4-e8b1-45a7-a3bb-188cd862d024" bpmnElement="sequenceFlow-263849a4-e8b1-45a7-a3bb-188cd862d024">
+        <omgdi:waypoint x="1140" y="30" />
+        <omgdi:waypoint x="1152" y="30" />
+        <omgdi:waypoint x="1152" y="190" />
+        <omgdi:waypoint x="1190" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-0012817d-4ba2-47a2-be28-ccbce911b290" bpmnElement="sequenceFlow-0012817d-4ba2-47a2-be28-ccbce911b290">
+        <omgdi:waypoint x="420" y="160" />
+        <omgdi:waypoint x="432" y="160" />
+        <omgdi:waypoint x="432" y="235" />
+        <omgdi:waypoint x="620" y="235" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-5c74726f-b364-4fcc-b715-cb7780f5d6b9" bpmnElement="sequenceFlow-5c74726f-b364-4fcc-b715-cb7780f5d6b9">
+        <omgdi:waypoint x="1590" y="167" />
+        <omgdi:waypoint x="1632" y="167" />
+        <omgdi:waypoint x="1632" y="310" />
+        <omgdi:waypoint x="1670" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-58e14618-6704-4a0b-95c2-c43769c29ccb" bpmnElement="sequenceFlow-58e14618-6704-4a0b-95c2-c43769c29ccb">
+        <omgdi:waypoint x="1470" y="197" />
+        <omgdi:waypoint x="1482" y="197" />
+        <omgdi:waypoint x="1482" y="310" />
+        <omgdi:waypoint x="1520" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_sequenceFlow-63b12fa3-cea4-44c1-99e5-3bc58fe3db92" bpmnElement="sequenceFlow-63b12fa3-cea4-44c1-99e5-3bc58fe3db92">
+        <omgdi:waypoint x="2160" y="190" />
+        <omgdi:waypoint x="2210" y="190" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

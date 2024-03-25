@@ -1,0 +1,3 @@
+{"agreement":2,"electedTask":"Generate Account Number"}
+{"agreement":0,"electedTask":"Generate Account Number"}
+{"aet":222.5789999999999,"agreement":2,"bpmnPath":"C:\\Users\\Yismael\\OneDrive\\Escritorio\\inria\\semi-auto_refac_ui\\public\\refactoring\\1711375721908\\refactored_process_1.bpmn","electedTask":"Generate Account Number","bpmnFilename":"refactored_process_1.bpmn","gain":6.427000000000021}
