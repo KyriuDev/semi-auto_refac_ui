@@ -30,7 +30,7 @@
   </head>
 
   <body class="bg-gray-50 min-h-screen mb-8">
-    <div class="container mx-auto px-4">
+    <div class="mx-auto px-4">
       <div
         class="flex flex-col md:flex-row justify-between items-start md:items-stretch space-y-4 md:space-y-0 md:space-x-4 mt-4"
       >
@@ -38,7 +38,7 @@
           method="post"
           id="bpmnUpload"
           enctype="multipart/form-data"
-          class="w-full md:w-2/6 bg-white p-5 rounded-lg shadow"
+          class="w-full md:w-2/6 xl:w-3/12 bg-white p-5 rounded-lg shadow"
         >
           <div class="space-y-4">
             <div>
@@ -91,31 +91,31 @@
             Upload Data
           </button>
         </form>
-        <div class="w-full md:w-4/6 bg-white rounded-lg shadow overflow-hidden">
+        <div
+          class="w-full md:w-4/6 xl:w-9/12 bg-white rounded-lg shadow overflow-hidden"
+        >
+          <div id="canvas1" class="w-full h-[250px] overflow-hidden"></div>
           <div
-            id="canvas1"
-            class="w-full h-[250px]  overflow-hidden"
-          ></div>
-          <div class="flex flex-col md:flex-row justify-between items-center py-2">
+            class="flex flex-col md:flex-row justify-between items-center py-2"
+          >
             <div class="mt-4">
               <label id="moveTaskText" class="ml-4"></label>
             </div>
-            
+
             <div class="px-4">
-               <button
-              id="acceptTask"
-              class="bg-green-500 text-white px-4 py-2 rounded-lg"
-            >
-              Yes
-            </button>
-            <button
-              id="declineTask"
-              class="bg-red-500 text-white px-4 py-2 rounded-lg "
-            >
-              No
-            </button>
+              <button
+                id="acceptTask"
+                class="bg-green-500 text-white px-4 py-2 rounded-lg"
+              >
+                Yes
+              </button>
+              <button
+                id="declineTask"
+                class="bg-red-500 text-white px-4 py-2 rounded-lg"
+              >
+                No
+              </button>
             </div>
-           
           </div>
         </div>
       </div>
@@ -123,38 +123,44 @@
       <div class="loader pg_bar"></div>
       <div class="overlay pg_bar"></div>
       <!--  -->
-<div class="w-full  mt-4 bg-white rounded-lg shadow overflow-hidden" >
-<div
-        id="canvas2"
-        class="w-full h-[250px] overflow-hidden"
-      ></div>
-  <div class="flex flex-col md:flex-row justify-between items-center py-2 to-hide">
-    <label id="gainText" class="font-bold to-hide ml-4"><b>GAIN: 1UT/1.9%</b></label>
-    <label id="acceptProcessText" class="mt-2 to-hide"
-      >Are you satisfied with the new version of the process?</label
-    >
-    <div class="px-4">
-      <button
-      id="acceptProcess"
-      class="bg-green-500 text-white px-4 py-2 rounded-lg to-hide"
-    >
-      Yes
-    </button>
-    <button
-      id="declineProcess"
-      class="bg-red-500 text-white px-4 py-2 rounded-lg to-hide"
-    >
-      No
-    </button>
-    </div>
-  </div>
-  
-
-    </div>
-</div>
+      <div
+        class="flex w-full h-auto mt-4 bg-white rounded-lg shadow overflow-hidden to-hide"
+      >
+        <div id="canvas2" class="w-full h-[350px] overflow-hidden"></div>
+        <div
+          class="flex flex-col md:flex-row justify-between items-center py-3 "
+        >
+          <div class="text-center md:text-left w-full md:w-auto">
+            <label id="gainText" class="font-bold  ml-4"
+              ><b>GAIN: 1UT/1.9%</b></label
+            >
+         
+            <label id="acceptProcessText" class="mt-2 "
+              >Are you satisfied with the new version of the process?</label
+            >
       
+           
+          </div>   
+          <div class="flex space-x-2 justify-center md:justify-end w-full md:w-auto px-4">
+           <button
+              id="acceptProcess"
+              class="bg-green-500 text-white px-4 py-2 rounded-lg "
+            >
+              Yes
+            </button>
+            <button
+              id="declineProcess"
+              class="bg-red-500 text-white px-4 py-2 rounded-lg "
+            >
+              No
+            </button>
+         </div>
+        </div>
+      </div>
+    </div>
 
     <script>
+      
       const form = document.getElementById("bpmnUpload");
       form.addEventListener("submit", handleSubmit);
 
@@ -336,6 +342,7 @@
               //alert(JSON.stringify(processesArray));
 
               $(document.getElementsByClassName("pg_bar")).hide();
+              $(document.getElementsByClassName("to-hide")).show();
               $(document.getElementById("canvas2")).show();
               $(document.getElementById("gainText")).show();
               $(document.getElementById("acceptProcessText")).show();
@@ -356,6 +363,7 @@
           };
 
           $(document.getElementById("moveTaskText")).hide();
+          $(document.getElementsByClassName("to-hide")).hide();
           $(document.getElementById("acceptTask")).hide();
           $(document.getElementById("declineTask")).hide();
           $(document.getElementsByClassName("pg_bar")).show();
@@ -390,6 +398,7 @@
           $(document.getElementsByClassName("pg_bar")).show();
           document.getElementById("canvas1").innerHTML = "";
           document.getElementById("canvas2").innerHTML = "";
+          $(document.getElementsByClassName("to-hide")).hide();
           $(document.getElementById("canvas2")).hide();
           $(document.getElementById("gainText")).hide();
           $(document.getElementById("acceptProcessText")).hide();
@@ -442,6 +451,7 @@
           document.getElementById("canvas1").innerHTML = "";
           document.getElementById("canvas2").innerHTML = "";
           $(document.getElementById("canvas2")).hide();
+          $(document.getElementsByClassName("to-hide")).hide();
           $(document.getElementById("gainText")).hide();
           $(document.getElementById("acceptProcessText")).hide();
           $(document.getElementById("acceptProcess")).hide();
