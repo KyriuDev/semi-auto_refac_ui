@@ -30,20 +30,21 @@
   </head>
 
   <body class="bg-gray-50 min-h-screen mb-8">
-    <div class="mx-auto px-4">
+    <div class="mx-auto min-h-screen px-4">
       <div
-        class="flex flex-col md:flex-row justify-between items-start md:items-stretch space-y-4 md:space-y-0 md:space-x-4 mt-4"
+        class="flex flex-col md:flex-row justify-between items-start md:items-stretch space-y-4 md:space-y-0 md:space-x-4 mt-4" style="height: 50vh;"
       >
         <form
           method="post"
           id="bpmnUpload"
           enctype="multipart/form-data"
-          class="w-full md:w-2/6 xl:w-3/12 bg-white p-5 rounded-lg shadow"
+          class="flex flex-col justify-between w-full md:w-2/6 xl:w-3/12 2xl:w-2/12 min-h-full bg-white px-4 py-2 rounded-lg shadow"
+          
         >
-          <div class="space-y-4">
-            <div>
+          <div class="space-y-4 h-full flex flex-col justify-around">
+            <div class="flex-row">
               <label
-                class="block cursor-pointer mb-2 text-sm font-medium text-gray-900"
+                class="block cursor-pointer mb-1 text-sm 2xl:text-xl font-medium text-gray-900"
                 for="bpmnInput"
                 >BPMN Process:</label
               >
@@ -53,12 +54,12 @@
                 type="file"
                 placeholder="test"
                 accept=".bpmn, .xml"
-                class="w-full flex-grow text-sm text-blue-900 border rounded-full border-blue-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-300 file:text-blue-900 hover:file:bg-blue-100"
+                class="w-full flex-grow text-sm 2xl:text-xl text-blue-900 border rounded-full border-blue-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm 2xl:file:text-xl file:font-semibold file:bg-blue-300 file:text-blue-900 hover:file:bg-blue-100"
               />
             </div>
-            <div>
+            <div class="flex-row">
               <label
-                class="cursor-pointer block mb-2 text-sm font-medium text-gray-900"
+                class="cursor-pointer block mb-1 text-sm font-medium 2xl:text-xl text-gray-900"
                 for="resourcesInput"
                 >Global Information:</label
               >
@@ -66,13 +67,13 @@
                 id="resourcesInput"
                 name="file"
                 type="file"
-                class="w-full text-sm text-blue-900 border rounded-full border-blue-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-300 file:text-blue-900 hover:file:bg-blue-100"
+                class="w-full text-sm 2xl:text-xl text-blue-900 border rounded-full border-blue-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm 2xl:file:text-xl file:font-semibold file:bg-blue-300 file:text-blue-900 hover:file:bg-blue-100"
               />
-            </div>
+            </div class="flex-row">
             <div>
               <label
                 for="dependenciesInput"
-                class="cursor-pointer block mb-2 text-sm font-medium text-gray-900"
+                class="cursor-pointer block mb-1 text-sm 2xl:text-xl font-medium text-gray-900"
                 >Process Dependencies:</label
               >
 
@@ -80,44 +81,44 @@
                 id="dependenciesInput"
                 name="file"
                 type="file"
-                class="w-full text-sm text-blue-900 border rounded-full border-blue-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-300 file:text-blue-900 hover:file:bg-blue-100"
+                class="w-full text-sm 2xl:text-xl text-blue-900 border rounded-full border-blue-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm 2xl:file:text-xl file:font-semibold file:bg-blue-300 file:text-blue-900 hover:file:bg-blue-100"
               />
             </div>
           </div>
           <div class="flex justify-between">
             <button
               type="submit"
-              class="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
+              class="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold 2xl:text-xl shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
             >
               Upload Data
             </button>
-            <button
+            <a
               id="reset_bt"
-              class="mt-4 px-4 py-2 bg-slate-500 hover:bg-slate-700 focus:ring-slate-400 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
+              class="mt-4 px-4 py-2 cursor-pointer bg-slate-500 hover:bg-slate-700 focus:ring-slate-400 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold 2xl:text-xl shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
             >
               Reset
-            </button>
+          </a>
           </div>
         </form>
         <div
-          class="w-full md:w-4/6 xl:w-9/12 bg-white rounded-lg shadow overflow-hidden"
+          class="w-full md:w-4/6 xl:w-9/12 2xl:w-10/12 bg-white rounded-lg shadow overflow-hidden content-evenly"
         >
-          <div id="canvas1" class="w-full h-[250px] overflow-hidden"></div>
+          <div id="canvas1" class="w-full h-5/6 overflow-hidden"></div>
           <div class="flex flex-col md:flex-row items-center py-2">
             <div>
-              <label id="moveTaskText" class="ml-4"></label>
+              <label id="moveTaskText" class="my-4 ml-4 font-semibold 2xl:text-xl"></label>
             </div>
 
             <div class="px-4">
               <button
                 id="acceptTask"
-                class="bg-green-500 text-white px-4 py-2 rounded-lg"
+                class="bg-green-500 text-white px-4 py-1.5 rounded-lg 2xl:text-xl"
               >
                 Yes
               </button>
               <button
                 id="declineTask"
-                class="bg-red-500 text-white px-4 py-2 rounded-lg"
+                class="bg-red-500 text-white px-4 py-1.5 rounded-lg 2xl:text-xl"
               >
                 No
               </button>
@@ -130,32 +131,32 @@
       <div class="overlay pg_bar"></div>
       <!--  -->
       <div
-        class="flex w-full h-auto mt-4 bg-white rounded-lg shadow overflow-hidden to-hide"
+        class="flex w-full h-auto mt-4 bg-white rounded-lg shadow overflow-hidden to-hide" style="height: 48vh;"
       >
-        <div id="canvas2" class="w-full h-[350px] overflow-hidden"></div>
+        <div id="canvas2" class="w-full h-3/4 overflow-hidden"></div>
         <div
           class="flex flex-col md:flex-row justify-between items-center py-3"
         >
           <div class="text-center md:text-left w-full md:w-auto">
-            <label id="gainText" class="font-bold ml-4"
+            <label id="gainText" class="font-bold ml-4 2xl:text-xl"
               ><b>GAIN: 1UT/1.9%</b></label
             >
           </div>
           <div
             class="flex space-x-2 justify-center md:justify-end w-full md:w-auto px-4"
           >
-            <label id="acceptProcessText" class="mt-2"
+            <label id="acceptProcessText" class="mt-2 2xl:text-xl"
               >Are you satisfied with the new version of the process?</label
             >
             <button
               id="acceptProcess"
-              class="bg-green-500 text-white px-4 py-2 rounded-lg"
+              class="bg-green-500 text-white px-4 py-2 rounded-lg 2xl:text-xl"
             >
               Yes
             </button>
             <button
               id="declineProcess"
-              class="bg-red-500 text-white px-4 py-2 rounded-lg"
+              class="bg-red-500 text-white px-4 py-2 rounded-lg 2xl:text-xl"
             >
               No
             </button>
