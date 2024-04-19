@@ -1,0 +1,7 @@
+{"agreement":2,"electedTask":"Generate Account Number"}
+{"agreement":0,"electedTask":"Generate Account Number"}
+{"aet":65.44399999999997,"agreement":2,"bpmnPath":"C:\\Users\\Yismael\\OneDrive\\Escritorio\\inria\\semi-auto_refac_ui\\public\\refactoring\\1711536220532\\refactored_process_1.bpmn","electedTask":"Generate Account Number","bpmnFilename":"refactored_process_1.bpmn","gain":0.5830000000000268}
+{"aet":65.44399999999997,"agreement":0,"bpmnPath":"C:\\Users\\Yismael\\OneDrive\\Escritorio\\inria\\semi-auto_refac_ui\\public\\refactoring\\1711536220532\\refactored_process_1.bpmn","electedTask":"Generate Account Number","bpmnFilename":"refactored_process_1.bpmn","gain":0.5830000000000268}
+{"agreement":2,"electedTask":"Retrieve Customer Profile"}
+{"agreement":0,"electedTask":"Retrieve Customer Profile"}
+{"aet":66.595,"agreement":2,"bpmnPath":"C:\\Users\\Yismael\\OneDrive\\Escritorio\\inria\\semi-auto_refac_ui\\public\\refactoring\\1711536220532\\refactored_process_2.bpmn","electedTask":"Retrieve Customer Profile","bpmnFilename":"refactored_process_2.bpmn","gain":-1.1510000000000247}

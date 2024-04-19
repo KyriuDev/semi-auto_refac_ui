@@ -1,63 +1,50 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
 #download_bt {
-
   display: none;
 }
-
 #satisfaction_tv {
- 
   display: none;
 }
-
-
-
 #satisfaction_range {
-
   display: none;
 }
-
 #satisfaction_range_tv {
- 
   display: none;
 }
-
 #satisfaction_value {
-
   display: none;
 }
-
 #ok_bt {
-
   display: none;
 }
-middle-h{
+middle-h {
   height: 50vh !important;
-
 }
-
-#acceptTask,#declineTask, .to-hide{
-  
-    display: none;
+#acceptTask,
+#declineTask,
+.to-hide {
+  display: none;
 }
-.djs-palette, .djs-overlay-container {
+.djs-palette,
+.djs-overlay-container {
   display: none !important;
 }
-
+.djs-label {
+  user-select: none; /* Deshabilita la selección de texto */
+  pointer-events: none; /* Deshabilita eventos de puntero (click, etc.) */
+}
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: none;
-  z-index: 1000; 
+  z-index: 1000;
 }
-
 .loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
@@ -72,8 +59,11 @@ middle-h{
   display: none;
   z-index: 1001; /* Asegura que el loader esté sobre el overlay */
 }
-
 @keyframes spin {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
