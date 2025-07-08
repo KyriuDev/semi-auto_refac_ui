@@ -1,0 +1,2 @@
+{"aet":46.82300000000001,"resArray":[{"doctor":18.150441684389087},{"database":3.0250736140648513},{"administration":7.390274384235255},{"visa_office":77.9770295671977},{"marketing_staff":6.050147228129703},{"applicant":24.520828513786324},{"human_resources":60.961231350435284}]}
+{"aet":42.368,"resArray":[{"doctor":18.574635303041504},{"database":3.09577255050692},{"administration":7.469254035306128},{"visa_office":78.64223857865686},{"marketing_staff":6.19154510101384},{"applicant":25.14900863431899},{"human_resources":62.63592391936813}]}
